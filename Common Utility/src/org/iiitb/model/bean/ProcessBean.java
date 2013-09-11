@@ -6,12 +6,12 @@ import java.util.List;
 import org.iiitb.model.consts.ProcessState;
 
 /**
- * Process Object
+ * Process Bean Object
  * 
  * @author common-utility-team
  * 
  */
-public class Process {
+public class ProcessBean {
 	/**
 	 * process id
 	 */
@@ -41,7 +41,7 @@ public class Process {
 	 */
 	private ProcessState processState;
 
-	public Process(int pid, String pName, Date arrivalTime,
+	public ProcessBean(int pid, String pName, Date arrivalTime,
 			List<Resource> resources, List<TimeQuantum> burstList,
 			int priority, ProcessState processState) {
 		super();
