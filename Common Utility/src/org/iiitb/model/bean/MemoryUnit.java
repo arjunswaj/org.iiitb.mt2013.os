@@ -27,6 +27,16 @@ public class MemoryUnit extends Resource {
 	public final static boolean ALLOCATED = true;
 	public final static boolean FREE = false;
 
+	/**
+	 * Constructor 
+	 * @param rid
+	 * @param resourceName
+	 * @param availability
+	 * @param ownerPid
+	 * @param rType
+	 * @param startAddress
+	 * @param size
+	 */
 	public MemoryUnit(int rid, String resourceName, boolean availability,
 			int ownerPid, ResourceType rType, long startAddress, long size) {
 		super(rid, resourceName, availability, ownerPid, rType);
