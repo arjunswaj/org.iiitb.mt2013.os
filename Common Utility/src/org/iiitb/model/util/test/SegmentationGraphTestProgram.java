@@ -16,7 +16,7 @@ public class SegmentationGraphTestProgram {
 	public static void main(String[] args) {
 		File segmentFile = new File("segmentFile.csv");
 		SegmentationGrapher segmentationGrapher = new SegmentationGrapher(1,
-				"Segment", true, 10, ResourceType.MEMORY, 102567);
+				"Segment", true, 10, ResourceType.MEMORY);
 		segmentationGrapher.plotGraph(segmentFile);
 	}
 

@@ -31,17 +31,15 @@ public class SegmentationGrapher {
 	private int ownerPid;
 	private ResourceType rType;
 	private long memorySize;
-
+	
 	public SegmentationGrapher(int rid, String resourceName,
-			boolean availability, int ownerPid, ResourceType rType,
-			long memorySize) {
+			boolean availability, int ownerPid, ResourceType rType) {
 		super();
 		this.rid = rid;
 		this.resourceName = resourceName;
 		this.availability = availability;
 		this.ownerPid = ownerPid;
-		this.rType = rType;
-		this.memorySize = memorySize;
+		this.rType = rType;		
 	}
 
 	private List<MemorySegment> readMemorySegmentsFromFile(File file) {
@@ -50,6 +48,8 @@ public class SegmentationGrapher {
 		try {
 			bufferedReader = new BufferedReader(new FileReader(file));
 			String line = null;
+			line = bufferedReader.readLine();
+			this.memorySize = Long.parseLong(line);
 			while (null != (line = bufferedReader.readLine())) {
 				StringTokenizer st = new StringTokenizer(line, ",");
 				if (4 == st.countTokens()) {
