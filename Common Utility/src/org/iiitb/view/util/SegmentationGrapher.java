@@ -32,6 +32,8 @@ public class SegmentationGrapher {
 	private ResourceType rType;
 	private long memorySize;
 	
+	JFrame window = new JFrame();	
+	
 	public SegmentationGrapher(int rid, String resourceName,
 			boolean availability, int ownerPid, ResourceType rType) {
 		super();
@@ -82,15 +84,21 @@ public class SegmentationGrapher {
 	}
 
 	public void plotGraph(File file) {
-		JFrame window = new JFrame();
+		List<MemorySegment> memorySegments = readMemorySegmentsFromFile(file);
+		SegmentView segmentView = new SegmentView(memorySize, memorySegments);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_WIDTH,
-				ViewConsts.SEGMENT_WINDOW_HEIGHT);
-
+				ViewConsts.SEGMENT_WINDOW_HEIGHT);		
+		window.getContentPane().add(segmentView);
+		window.setVisible(true);
+	}
+	
+	public void reDraw(File file) {
 		List<MemorySegment> memorySegments = readMemorySegmentsFromFile(file);
 		SegmentView segmentView = new SegmentView(memorySize, memorySegments);
+		window.getContentPane().removeAll();
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
 	}

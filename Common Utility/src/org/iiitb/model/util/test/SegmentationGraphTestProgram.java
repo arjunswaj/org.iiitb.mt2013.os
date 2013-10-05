@@ -13,11 +13,14 @@ import org.iiitb.view.util.SegmentationGrapher;
  */
 public class SegmentationGraphTestProgram {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		File segmentFile = new File("segmentFile.csv");
+		File reDrawsegmentFile = new File("reDrawsegmentFile.csv");
 		SegmentationGrapher segmentationGrapher = new SegmentationGrapher(1,
 				"Segment", true, 10, ResourceType.MEMORY);
 		segmentationGrapher.plotGraph(segmentFile);
+		Thread.sleep(5000);
+		segmentationGrapher.reDraw(reDrawsegmentFile);
 	}
 
 }
