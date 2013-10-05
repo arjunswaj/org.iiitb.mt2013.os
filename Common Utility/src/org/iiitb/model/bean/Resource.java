@@ -9,6 +9,13 @@ public class Resource {
 	protected int ownerPid;
 	protected ResourceType rType;
 
+	/**
+	 * Default Constructor
+	 */
+	public Resource() {
+
+	}
+
 	public Resource(int rid, String resourceName, boolean availability,
 			int ownerPid, ResourceType rType) {
 		super();
