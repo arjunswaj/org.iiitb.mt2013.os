@@ -3,77 +3,62 @@ package org.iiitb.model.bean;
 import org.iiitb.model.consts.ResourceType;
 
 /**
- * A {@code MemoryUnit} models a logical sub-unit of main memory({@link Memory}
- * ).
+ * A {@code MemoryUnit} models a logical partition of main memory(
+ * {@link Memory} ).
+ * <p>
+ * Typically this implementation should be sub classed to suit the specific
+ * memory management scheme being implemented, viz, paging, segmentation or
+ * contiguous memory management schemes.
  * 
  */
-public class MemoryUnit extends Resource {
-
-	protected long startAddress;
-
+public class MemoryUnit extends Resource
+{
 	/**
-	 * Start address of the memory unit.
+	 * Start address of the memory partition.
 	 */
 	protected long address;
+
 	/**
-	 * Indicates whether the memory unit has been allocated or not.
-	 */
-	protected boolean allocated;
-	/**
-	 * Size of the memory unit.
+	 * Size of the memory partition.
 	 */
 	protected long size;
-
-	public final static boolean ALLOCATED = true;
-	public final static boolean FREE = false;
-
-	/**
-	 * Constructor 
-	 * @param rid
-	 * @param resourceName
-	 * @param availability
-	 * @param ownerPid
-	 * @param rType
-	 * @param startAddress
-	 * @param size
-	 */
-	public MemoryUnit(int rid, String resourceName, boolean availability,
-			int ownerPid, ResourceType rType, long startAddress, long size) {
-		super(rid, resourceName, availability, ownerPid, rType);
-		this.startAddress = startAddress;
-		this.size = size;
+	
+	public long getAddress()
+	{
+		return address;
 	}
 
-	public long getStartAddress() {
-		return startAddress;
-	}
-
-	public void setStartAddress(long startAddress) {
-		this.startAddress = startAddress;
-	}
-
-	public long getSize() {
+	public long getSize()
+	{
 		return size;
 	}
 
-	public void setSize(long size) {
+	/**
+	 * Create a {@code MemoryUnit} object representing an unallocated memory
+	 * partition.
+	 * 
+	 * @param address Address of the memory partition.
+	 * @param size Size of memory partition
+	 * 
+	 */
+	public MemoryUnit(int rid, String resourceName, boolean availability,
+			int ownerPid, ResourceType rType, long startAddress, long size)
+	{
+		super(rid, resourceName, availability, ownerPid, rType);
+		this.address = startAddress;
 		this.size = size;
 	}
 
 	/**
-	 * Create a {@code MemoryUnit} object
-	 * 
-	 * @param address
-	 *            Start address of the memory unit.
-	 * @param size
-	 *            Size of memory unit
-	 * @param allocated
-	 *            Flag indicating whether this memory unit has been allocated or
-	 *            not.
+	 * Returns a string representation of this memory partition.
 	 */
-	MemoryUnit(long address, long size, boolean allocated) {
-		this.size = size;
-		this.address = address;
-		this.allocated = allocated;
+	public String toString()
+	{
+		String s = new String();
+		s += address + "\n";
+		s += "\t" + size + "\n";
+		s += (address + size - 1) + "\n";
+		s += "++++++++++++++++++\n";
+		return s;
 	}
 }

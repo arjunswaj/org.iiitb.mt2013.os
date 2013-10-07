@@ -57,12 +57,12 @@ public class SegmentView extends JComponent {
 		boolean isLeft = false;
 		for (MemorySegment memorySegment : memorySegmentList) {
 			height = (int) ((double) memorySegment.getSize() / scalingFactor);
-			int yCoOrd = (int) ((double) memorySegment.getStartAddress() / scalingFactor)
+			int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
 					+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
 			System.out.println("memory unit size: " + memorySegment.getSize()
 					+ " scaling factor: " + scalingFactor + " height: "
 					+ height + " memory start address: "
-					+ memorySegment.getStartAddress()
+					+ memorySegment.getAddress()
 					+ " memory scaled address: " + yCoOrd);
 			g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
 					ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
@@ -77,20 +77,20 @@ public class SegmentView extends JComponent {
 			g.setColor(new Color(0x00, 0x00, 0x00));
 
 			if (isLeft) {
-				g.drawString(String.valueOf(memorySegment.getStartAddress()),
+				g.drawString(String.valueOf(memorySegment.getAddress()),
 						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 				g.drawString(
-						String.valueOf(memorySegment.getStartAddress()
+						String.valueOf(memorySegment.getAddress()
 								+ memorySegment.getSize()),
 						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd + height
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 			} else {
-				g.drawString(String.valueOf(memorySegment.getStartAddress()),
+				g.drawString(String.valueOf(memorySegment.getAddress()),
 						ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 				g.drawString(
-						String.valueOf(memorySegment.getStartAddress()
+						String.valueOf(memorySegment.getAddress()
 								+ memorySegment.getSize()),
 						ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd + height
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
