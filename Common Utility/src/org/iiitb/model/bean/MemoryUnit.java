@@ -33,6 +33,13 @@ public class MemoryUnit extends Resource
 		return size;
 	}
 
+	public MemoryUnit(int rid, String resourceName, boolean availability,
+			int ownerPid, ResourceType rType, long startAddress, long size)
+	{
+		super(rid, resourceName, availability, ownerPid, rType);
+		this.address = startAddress;
+		this.size = size;
+	}
 	/**
 	 * Create a {@code MemoryUnit} object representing an unallocated memory
 	 * partition.
@@ -41,11 +48,9 @@ public class MemoryUnit extends Resource
 	 * @param size Size of memory partition
 	 * 
 	 */
-	public MemoryUnit(int rid, String resourceName, boolean availability,
-			int ownerPid, ResourceType rType, long startAddress, long size)
+	public MemoryUnit(long address, long size)
 	{
-		super(rid, resourceName, availability, ownerPid, rType);
-		this.address = startAddress;
+		this.address = address;
 		this.size = size;
 	}
 
