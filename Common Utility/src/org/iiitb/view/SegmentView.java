@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.iiitb.model.bean.Memory;
 import org.iiitb.model.bean.MemorySegment;
 import org.iiitb.view.consts.ViewConsts;
 
@@ -23,11 +24,19 @@ public class SegmentView extends JComponent {
 	private static final long serialVersionUID = 3361893591327175621L;
 	private long memorySize;
 	private List<MemorySegment> memorySegmentList;
+	Memory<MemorySegment> memoryUnit;
 	private double scalingFactor;
 
 	public SegmentView(long memorySize, List<MemorySegment> memorySegmentList) {
 		this.memorySize = memorySize;
 		this.memorySegmentList = memorySegmentList;
+		this.scalingFactor = ((double) this.memorySize)
+				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+	}
+
+	public SegmentView(Memory<MemorySegment> memoryUnit) {
+		this.memorySize = memoryUnit.getSize();
+		this.memoryUnit = memoryUnit;
 		this.scalingFactor = ((double) this.memorySize)
 				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
 	}
@@ -55,15 +64,20 @@ public class SegmentView extends JComponent {
 						+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 
 		boolean isLeft = false;
-		for (MemorySegment memorySegment : memorySegmentList) {
+		Iterable memoryList = memorySegmentList;
+		if (null == memorySegmentList) {
+			memoryList = memoryUnit.getAll();
+		}
+		for (Object object : memoryList) {
+			MemorySegment memorySegment = (MemorySegment) object;
 			height = (int) ((double) memorySegment.getSize() / scalingFactor);
 			int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
 					+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
 			System.out.println("memory unit size: " + memorySegment.getSize()
 					+ " scaling factor: " + scalingFactor + " height: "
 					+ height + " memory start address: "
-					+ memorySegment.getAddress()
-					+ " memory scaled address: " + yCoOrd);
+					+ memorySegment.getAddress() + " memory scaled address: "
+					+ yCoOrd);
 			g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
 					ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
 

@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 
+import org.iiitb.model.bean.Memory;
 import org.iiitb.model.bean.MemorySegment;
 import org.iiitb.model.consts.ResourceType;
 import org.iiitb.view.SegmentView;
@@ -31,9 +32,23 @@ public class SegmentationGrapher {
 	private int ownerPid;
 	private ResourceType rType;
 	private long memorySize;
-	
-	JFrame window = new JFrame();	
-	
+
+	JFrame window = new JFrame();
+
+	/**
+	 * Constructor for Segmentation Grapher
+	 * 
+	 * @param rid
+	 *            resource Id
+	 * @param resourceName
+	 *            resource Name
+	 * @param availability
+	 *            is available
+	 * @param ownerPid
+	 *            owner process id
+	 * @param rType
+	 *            resource type
+	 */
 	public SegmentationGrapher(int rid, String resourceName,
 			boolean availability, int ownerPid, ResourceType rType) {
 		super();
@@ -41,7 +56,7 @@ public class SegmentationGrapher {
 		this.resourceName = resourceName;
 		this.availability = availability;
 		this.ownerPid = ownerPid;
-		this.rType = rType;		
+		this.rType = rType;
 	}
 
 	private List<MemorySegment> readMemorySegmentsFromFile(File file) {
@@ -83,6 +98,12 @@ public class SegmentationGrapher {
 		return memorySegments;
 	}
 
+	/**
+	 * Plot the graph using File as paramenter
+	 * 
+	 * @param file
+	 *            file
+	 */
 	public void plotGraph(File file) {
 		List<MemorySegment> memorySegments = readMemorySegmentsFromFile(file);
 		SegmentView segmentView = new SegmentView(memorySize, memorySegments);
@@ -90,11 +111,51 @@ public class SegmentationGrapher {
 		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_WIDTH,
-				ViewConsts.SEGMENT_WINDOW_HEIGHT);		
+				ViewConsts.SEGMENT_WINDOW_HEIGHT);
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
 	}
-	
+
+	/**
+	 * Plot the graph using Memory unit as parameter
+	 * 
+	 * @param memoryUnit
+	 *            memory unit
+	 */
+	public void plotGraph(Memory<MemorySegment> memoryUnit) {
+		this.memorySize = memoryUnit.getSize();
+		SegmentView segmentView = new SegmentView(memoryUnit);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
+				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
+				ViewConsts.SEGMENT_WINDOW_WIDTH,
+				ViewConsts.SEGMENT_WINDOW_HEIGHT);
+		window.getContentPane().add(segmentView);
+		window.setVisible(true);
+	}
+
+	/**
+	 * Call this when the memory segments updates and you have to update the
+	 * view
+	 * 
+	 * @param memoryUnit
+	 *            memory Unit
+	 */
+	public void reDraw(Memory<MemorySegment> memoryUnit) {
+		this.memorySize = memoryUnit.getSize();
+		SegmentView segmentView = new SegmentView(memoryUnit);
+		window.getContentPane().removeAll();
+		window.getContentPane().add(segmentView);
+		window.setVisible(true);
+	}
+
+	/**
+	 * Call this when the memory segments updates and you have to update the
+	 * view
+	 * 
+	 * @param file
+	 *            file
+	 */
 	public void reDraw(File file) {
 		List<MemorySegment> memorySegments = readMemorySegmentsFromFile(file);
 		SegmentView segmentView = new SegmentView(memorySize, memorySegments);

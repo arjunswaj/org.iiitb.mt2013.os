@@ -15,6 +15,9 @@ public class Memory<MU extends MemoryUnit>
 	private TreeMap<Long, MU> st;
 	private long size;
 
+	public long getSize() {
+		return size;
+	}
 	/**
 	 * Creates a memory model of the specified size.
 	 * 
