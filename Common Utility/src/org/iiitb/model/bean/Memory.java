@@ -110,9 +110,9 @@ public class Memory<MU extends MemoryUnit>
 	 */
 	public String toString()
 	{
-		String s = new String();
+		StringBuilder sb = new StringBuilder();
 		for (MemoryUnit mu : getAll())
-			s += mu.toString();
-		return s;
+			sb.append(mu.toString());
+		return sb.toString();
 	}
 }

@@ -59,11 +59,11 @@ public class MemoryUnit extends Resource
 	 */
 	public String toString()
 	{
-		String s = new String();
-		s += address + "\n";
-		s += "\t" + size + "\n";
-		s += (address + size - 1) + "\n";
-		s += "++++++++++++++++++\n";
-		return s;
+		StringBuilder sb = new StringBuilder();
+		sb.append(address).append("\n");
+		sb.append("\t").append(size).append("\n");
+		sb.append((address + size - 1)).append("\n");
+		sb.append("++++++++++++++++++\n");
+		return sb.toString();
 	}
 }
