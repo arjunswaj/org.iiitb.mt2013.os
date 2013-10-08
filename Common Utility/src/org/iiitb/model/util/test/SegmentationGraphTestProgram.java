@@ -6,7 +6,7 @@ import org.iiitb.model.bean.InvalidMemoryUnitException;
 import org.iiitb.model.bean.Memory;
 import org.iiitb.model.bean.MemorySegment;
 import org.iiitb.model.consts.ResourceType;
-import org.iiitb.view.util.SegmentationGrapher;
+import org.iiitb.controller.util.SegmentationGrapher;
 
 /**
  * Test Program to plot Segments

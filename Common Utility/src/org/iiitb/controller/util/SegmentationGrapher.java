@@ -1,4 +1,4 @@
-package org.iiitb.view.util;
+package org.iiitb.controller.util;
 
 import java.io.BufferedReader;
 import java.io.File;
