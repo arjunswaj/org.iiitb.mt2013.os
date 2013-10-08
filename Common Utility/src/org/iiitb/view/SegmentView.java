@@ -43,9 +43,10 @@ public class SegmentView extends JComponent {
 
 	public void paint(Graphics g) {
 		int height = (int) ((double) memorySize / scalingFactor);
-		System.out.println("memory size: " + memorySize + " scaling factor: "
-				+ scalingFactor + " height: " + height);
-
+		/*
+		 * System.out.println("memory size: " + memorySize + " scaling factor: "
+		 * + scalingFactor + " height: " + height);
+		 */
 		g.drawString("Visualisation of Memory Segmentation",
 				ViewConsts.SEGMENT_TITLE_X_MARGIN,
 				ViewConsts.SEGMENT_TITLE_Y_MARGIN);
@@ -73,11 +74,12 @@ public class SegmentView extends JComponent {
 			height = (int) ((double) memorySegment.getSize() / scalingFactor);
 			int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
 					+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
-			System.out.println("memory unit size: " + memorySegment.getSize()
-					+ " scaling factor: " + scalingFactor + " height: "
-					+ height + " memory start address: "
-					+ memorySegment.getAddress() + " memory scaled address: "
-					+ yCoOrd);
+			/*
+			 * System.out.println("memory unit size: " + memorySegment.getSize()
+			 * + " scaling factor: " + scalingFactor + " height: " + height +
+			 * " memory start address: " + memorySegment.getAddress() +
+			 * " memory scaled address: " + yCoOrd);
+			 */
 			g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
 					ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
 
