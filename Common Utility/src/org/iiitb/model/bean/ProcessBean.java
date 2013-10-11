@@ -40,6 +40,11 @@ public class ProcessBean {
 	 * Life cycle State of the process
 	 */
 	private ProcessState processState;
+	
+	public ProcessBean(int pid, String pName){
+		this.pid = pid;
+		this.pName = pName;
+	}
 
 	public ProcessBean(int pid, String pName, Date arrivalTime,
 			List<Resource> resources, List<TimeQuantum> burstList,
