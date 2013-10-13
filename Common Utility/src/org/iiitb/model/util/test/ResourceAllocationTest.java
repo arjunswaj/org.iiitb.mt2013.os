@@ -35,6 +35,10 @@ public class ResourceAllocationTest {
 		
 		r1.addInstance(1);
 		render.plotResource(snap);
+		
+		r3.issueInstance(2);
+		render.plotResource(snap);
+		
 
 	}
 
