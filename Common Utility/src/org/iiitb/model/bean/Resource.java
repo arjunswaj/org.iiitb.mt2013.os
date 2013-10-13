@@ -8,6 +8,7 @@ public class Resource {
 	protected boolean availability;
 	protected int ownerPid;
 	protected ResourceType rType;
+	
 
 	/**
 	 * Default Constructor
@@ -16,7 +17,7 @@ public class Resource {
 
 	}
 
-	public Resource(int rid, String resourceName, boolean availability,
+	public Resource(int rid, String resourceName, boolean availability, 
 			int ownerPid, ResourceType rType) {
 		super();
 		this.rid = rid;
@@ -24,6 +25,13 @@ public class Resource {
 		this.availability = availability;
 		this.ownerPid = ownerPid;
 		this.rType = rType;
+	}
+	
+	public Resource( int rid, String resourceName, boolean availability){
+		super();
+		this.rid = rid;
+		this.resourceName = resourceName;
+		this.availability = availability;
 	}
 
 	public int getRid() {
