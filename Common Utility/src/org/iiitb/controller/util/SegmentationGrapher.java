@@ -114,6 +114,7 @@ public class SegmentationGrapher {
 				ViewConsts.SEGMENT_WINDOW_HEIGHT);
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
+		window.setTitle("Segmentation Visualiser");
 	}
 
 	/**
@@ -132,6 +133,7 @@ public class SegmentationGrapher {
 				ViewConsts.SEGMENT_WINDOW_HEIGHT);
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
+		window.setTitle("Segmentation Visualiser");
 	}
 
 	/**
@@ -147,6 +149,7 @@ public class SegmentationGrapher {
 		window.getContentPane().removeAll();
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
+		window.setTitle("Segmentation Visualiser");
 	}
 
 	/**
@@ -162,6 +165,7 @@ public class SegmentationGrapher {
 		window.getContentPane().removeAll();
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
+		window.setTitle("Segmentation Visualiser");
 	}
 
 }

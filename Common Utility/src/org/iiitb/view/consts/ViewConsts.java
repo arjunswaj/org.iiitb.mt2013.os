@@ -29,4 +29,14 @@ public class ViewConsts {
 	public static final int SEGMENT_TEXT_RIGHT_X_MARGIN = SEGMENT_WINDOW_WIDTH - 140;
 
 	// Segment View Constants end here
+	
+	//Segment and Process Integration Constants Start here
+	public static final int PROCESS_SEGMENT_PANEL_HEIGHT = 1200;
+	public static final int PROCESS_SEGMENT_PANEL_WIDTH = 1000;
+	
+	public static final int PROCESS_SEGMENT_SCROLL_HEIGHT = 1500;
+	public static final int PROCESS_SEGMENT_SCROLL_WIDTH = 1000;
+	
+	public static final int PROCESS_SEGMENT_WINDOW_HEIGHT = 800;
+	public static final int PROCESS_SEGMENT_WINDOW_WIDTH = 1000;
 }

@@ -40,8 +40,13 @@ public class ProcessBean {
 	 * Life cycle State of the process
 	 */
 	private ProcessState processState;
-	
-	public ProcessBean(int pid, String pName){
+
+	/**
+	 * Memory Associated with Process
+	 */
+	private Memory<MemorySegment> memoryUnit;
+
+	public ProcessBean(int pid, String pName) {
 		this.pid = pid;
 		this.pName = pName;
 	}
@@ -113,6 +118,14 @@ public class ProcessBean {
 
 	public void setProcessState(ProcessState processState) {
 		this.processState = processState;
+	}
+
+	public Memory<MemorySegment> getMemoryUnit() {
+		return memoryUnit;
+	}
+
+	public void setMemoryUnit(Memory<MemorySegment> memoryUnit) {
+		this.memoryUnit = memoryUnit;
 	}
 
 }
