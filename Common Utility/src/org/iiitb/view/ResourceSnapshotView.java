@@ -7,6 +7,7 @@ package org.iiitb.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.TextArea;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -23,7 +24,8 @@ public class ResourceSnapshotView extends JComponent{
 	private static final long serialVersionUID = 2613688163985731142L;
 	List<ResourceInstances> resource;
 	List<ProcessBean> process;
-	ResourceInstances instanceObj = new ResourceInstances();
+	DisplayStatus msg;
+	TextArea txt = new TextArea("output\n",5,40);
 	
 
 	public ResourceSnapshotView( List<ResourceInstances> snap, List<ProcessBean> snap1){
@@ -33,6 +35,10 @@ public class ResourceSnapshotView extends JComponent{
 	
 	public ResourceSnapshotView( List<ResourceInstances> snap){
 		this.resource = snap;
+	}
+	
+	public ResourceSnapshotView(){
+	//	this.resource = snap;
 	}
 
 	public List<ResourceInstances> getResource() {
@@ -88,7 +94,5 @@ public class ResourceSnapshotView extends JComponent{
 			g.setFont(new Font("default", Font.BOLD, 16));
 			g.drawString(((ProcessBean) plist[i]).getpName(),ResourceViewConsts.PROCESS_X+offset+30 ,ResourceViewConsts.PROCESS_Y+25);
 		}
-		
-		g.drawString("view console for output",ResourceViewConsts.PROCESS_X+30 ,ResourceViewConsts.PROCESS_Y+150);
 	}
 }

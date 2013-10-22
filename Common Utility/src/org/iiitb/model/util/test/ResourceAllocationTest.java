@@ -6,6 +6,7 @@ import java.util.List;
 import org.iiitb.controller.util.SnapshotRenderer;
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.ResourceInstances;
+import org.iiitb.view.DisplayStatus;
 import org.iiitb.view.ResourceSnapshotView;
 
 public class ResourceAllocationTest {
@@ -33,6 +34,8 @@ public class ResourceAllocationTest {
 		ProcessBean p1 = new ProcessBean(1,"process 1");
 		ProcessBean p2 = new ProcessBean(2,"process 2");
 
+		/*DisplayStatus status = new DisplayStatus(100,750,110,120);
+		status.setContent(msg);*/
 		/**
 		 * add created resources and processes to their respective lists
 		 */
@@ -51,16 +54,23 @@ public class ResourceAllocationTest {
 		 */
 		SnapshotRenderer render = new SnapshotRenderer();
 		ResourceSnapshotView snap = new ResourceSnapshotView(rlist,plist);
-		render.plotResource(snap);
+		//render.plotResource(snap);
 		Thread.sleep(1000);
 		
 		r1.addInstance();
+		render.plotResource(snap,r1.getDispObj());
+		Thread.sleep(1000);
 				
 		r3.issueInstance(p1);
+		//render.plotResource(snap);
+		//Thread.sleep(1000);
 				
 		r4.issueInstance(p1);
+		//render.plotResource(snap);
+		//Thread.sleep(1000);
 		
 		r2.issueInstance(p2);
+		//Thread.sleep(1000);
 		
 		r2.issueInstance(p1);
 		
@@ -75,7 +85,7 @@ public class ResourceAllocationTest {
 		r1.addInstance();
 
 
-		render.plotResource(snap);
+		//render.plotResource(snap,status);
 	}
 
 }
