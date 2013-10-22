@@ -26,7 +26,7 @@ public class ProcessSnapshotView extends JComponent{
 	ProcessBean current;
 	List<ProcessBean> blocked;
 	int time;
-	
+	private List<ProcessSnapshotView> processSnapshotList;//hnb
 	public  ProcessSnapshotView(List<ProcessBean> readylist, ProcessBean current,List<ProcessBean>blocked,int time){
 		
 		ready = new ReadyQueue();
@@ -42,6 +42,12 @@ public class ProcessSnapshotView extends JComponent{
 		this.time = time;
 				
 	}
+	//hnb
+		public ProcessSnapshotView(List<ProcessSnapshotView> processSnapshotList){
+			this.processSnapshotList=processSnapshotList;
+		}
+		//hnb
+		
 	
 	public ProcessSnapshotView( ProcessSnapshotView snap) {
 		this.ready = snap.ready;
