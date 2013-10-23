@@ -41,15 +41,6 @@ public class SnapshotRenderer {
 		window.setVisible(true);
 	}
 	
-	public void plotResource(ResourceSnapshotView snapshot){
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setBounds(ResourceViewConsts.WINDOW_X,ResourceViewConsts.WINDOW_Y,
-				ResourceViewConsts.WINDOW_WIDTH,ResourceViewConsts.WINDOW_HEIGHT);
-		window.getContentPane().removeAll();
-		window.getContentPane().add(snapshot);
-		window.setVisible(true);
-	}
-		
 	public List<ProcessSnapshotView> readProcessSegmentsFromFile(File file) {
 		List<ProcessSnapshotView> processSegments = new ArrayList<ProcessSnapshotView>();
 		BufferedReader bufferedReader = null;
@@ -63,68 +54,69 @@ public class SnapshotRenderer {
 		int n=0;
 		
 		try{
-		bufferedReader = new BufferedReader(new FileReader(file));
-		String line = null;
+			bufferedReader = new BufferedReader(new FileReader(file));
+			String line = null;
 		
-		while (null != (line = bufferedReader.readLine())) {
+			while (null != (line = bufferedReader.readLine())) {
 			
-			List<ProcessBean> readylist = new ArrayList<ProcessBean>();
-			List<ProcessBean> blockedlist = new ArrayList<ProcessBean>();
-			StringTokenizer st = new StringTokenizer(line, ",");
+				List<ProcessBean> readylist = new ArrayList<ProcessBean>();
+				List<ProcessBean> blockedlist = new ArrayList<ProcessBean>();
+				StringTokenizer st = new StringTokenizer(line, ",");
 			
-			currentpid = Integer.parseInt(st.nextToken());
-			currentpName = st.nextToken();
-			current=new ProcessBean(currentpid,currentpName);
+				currentpid = Integer.parseInt(st.nextToken());
+				currentpName = st.nextToken();
+				current=new ProcessBean(currentpid,currentpName);
 			
-			time = Integer.parseInt(st.nextToken());
-			readyq = Integer.parseInt(st.nextToken());
+				time = Integer.parseInt(st.nextToken());
+				readyq = Integer.parseInt(st.nextToken());
 			
-			for(int i=0;i<readyq;i++){
-				int pid = Integer.parseInt(st.nextToken());
-				String pName = st.nextToken();
-				ProcessBean ready=new ProcessBean(pid,pName);
-				readylist.add(ready);
-				//System.out.println("ready"+pid+","+pName);
-				
-			}
-			blockedq = Integer.parseInt(st.nextToken());
+				for(int i=0;i<readyq;i++){
+					int pid = Integer.parseInt(st.nextToken());
+					String pName = st.nextToken();
+					ProcessBean ready=new ProcessBean(pid,pName);
+					readylist.add(ready);
+					//System.out.println("ready"+pid+","+pName);
+				}
+				blockedq = Integer.parseInt(st.nextToken());
 			
-			for(int i=0;i<blockedq;i++){
-				int pid = Integer.parseInt(st.nextToken());
-				String pName = st.nextToken();
-				ProcessBean blocked=new ProcessBean(pid,pName);
-				blockedlist.add(blocked);
-				//System.out.println("blocked"+pid+","+pName);
-				
-			}
+				for(int i=0;i<blockedq;i++){
+					int pid = Integer.parseInt(st.nextToken());
+					String pName = st.nextToken();
+					ProcessBean blocked=new ProcessBean(pid,pName);
+					blockedlist.add(blocked);
+					//System.out.println("blocked"+pid+","+pName);
+				}
 			
-			ProcessSnapshotView p = new ProcessSnapshotView(readylist,current,blockedlist,time);
-			plot(p);
+				ProcessSnapshotView p = new ProcessSnapshotView(readylist,current,blockedlist,time);
+				plot(p);
 			
-			processSegments.add(p);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+				processSegments.add(p);
+				try {
+					Thread.sleep(1000);
+				} 
+				catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+					e.printStackTrace();
+				}
 			}
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			if (null != bufferedReader) {
 				try {
 					bufferedReader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-	       }
-			return processSegments;
-		}	
+		}
+	}
+	return processSegments;
+}	
 	/**
 	 * Plot the graph using File as paramenter
 	 * 

@@ -13,7 +13,7 @@ import org.iiitb.view.ResourceSnapshotView;
 public class ResourceInstances extends Resource{
 
 	protected int instances;
-	ResourceSnapshotView view = new ResourceSnapshotView();
+	//ResourceSnapshotView view = new ResourceSnapshotView();
 	DisplayStatus dispObj = new DisplayStatus(100,750,50,50);
 
 

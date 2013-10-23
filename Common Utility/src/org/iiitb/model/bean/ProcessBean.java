@@ -1,5 +1,6 @@
 package org.iiitb.model.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class ProcessBean {
 	public ProcessBean(int pid, String pName) {
 		this.pid = pid;
 		this.pName = pName;
+		this.resources = new ArrayList<Resource>();
 	}
 
 	public ProcessBean(int pid, String pName, Date arrivalTime,

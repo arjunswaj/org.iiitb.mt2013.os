@@ -8,6 +8,7 @@ public class Resource {
 	protected boolean availability;
 	protected int ownerPid;
 	protected ResourceType rType;
+	protected int numOfInstance;
 	
 
 	/**
@@ -17,6 +18,17 @@ public class Resource {
 
 	}
 
+	public Resource(int rid, String resourceName, boolean availability, int num) {
+		super();
+		this.rid = rid;
+		this.resourceName = resourceName;
+		this.availability = availability;
+		//this.ownerPid = ownerPid;
+	//	this.rType = rType;
+		this.numOfInstance = num;
+		
+		}
+	
 	public Resource(int rid, String resourceName, boolean availability, 
 			int ownerPid, ResourceType rType) {
 		super();
@@ -51,7 +63,12 @@ public class Resource {
 	}
 
 	public boolean isAvailability() {
-		return availability;
+		if(availability){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public void setAvailability(boolean availability) {
@@ -72,6 +89,20 @@ public class Resource {
 
 	public void setrType(ResourceType rType) {
 		this.rType = rType;
+	}
+
+	public int getNumOfInstance() {
+		return numOfInstance;
+	}
+
+	public void setNumOfInstance(int numOfInstance) {
+		this.numOfInstance = numOfInstance;
+	}
+	public void addInstance(){
+		numOfInstance++;
+	}
+	public void removeInstance(){
+		numOfInstance--;
 	}
 
 }

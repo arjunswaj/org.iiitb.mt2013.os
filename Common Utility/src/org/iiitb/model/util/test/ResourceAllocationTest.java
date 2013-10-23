@@ -3,89 +3,98 @@ package org.iiitb.model.util.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iiitb.controller.util.SnapshotRenderer;
+import org.iiitb.controller.util.ResourceGraphVisualiser;
 import org.iiitb.model.bean.ProcessBean;
-import org.iiitb.model.bean.ResourceInstances;
-import org.iiitb.view.DisplayStatus;
+import org.iiitb.model.bean.Resource;
+import org.iiitb.model.bean.ResourceAllocation;
 import org.iiitb.view.ResourceSnapshotView;
 
 public class ResourceAllocationTest {
-	
+
 	/**
 	 * @author anvith
 	 * @param args
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
-	
-	public static void main( String[] args) throws InterruptedException{
-		
-		/**
-		 * create resources along with the number of instances of each resource
-		 */
-		
-		ResourceInstances r1 = new ResourceInstances(1,"processor",true,3);
-		ResourceInstances r2 = new ResourceInstances(2,"memory",false,0);
-		ResourceInstances r3 = new ResourceInstances(3, "CD-ROM", true, 12);
-		ResourceInstances r4 = new ResourceInstances(4, "Floppy", true, 1);
-		
-		/**
-		 * create processes that would be using the above resources
-		 */
-		ProcessBean p1 = new ProcessBean(1,"process 1");
-		ProcessBean p2 = new ProcessBean(2,"process 2");
 
-		/*DisplayStatus status = new DisplayStatus(100,750,110,120);
-		status.setContent(msg);*/
+	public static void main(String[] args) throws InterruptedException {
 		/**
-		 * add created resources and processes to their respective lists
+		 * Create Process and Resource list
 		 */
-		List<ResourceInstances> rlist = new ArrayList<ResourceInstances>();
-		List<ProcessBean> plist = new ArrayList<ProcessBean>();
-		
-		rlist.add(r1);
-		rlist.add(r2);
-		rlist.add(r3);
-		rlist.add(r4);
-		plist.add(p1);
-		plist.add(p2);
-		
+		List<Resource> rList = new ArrayList<Resource>();
+		List<ProcessBean> pList = new ArrayList<ProcessBean>();
+
 		/**
-		 * create the snapshot of the resources and process
+		 * Create processes that would be using the above resources
 		 */
-		SnapshotRenderer render = new SnapshotRenderer();
-		ResourceSnapshotView snap = new ResourceSnapshotView(rlist,plist);
-		//render.plotResource(snap);
+		ProcessBean p1 = new ProcessBean(1, "process 1");
+		ProcessBean p2 = new ProcessBean(2, "process 2");
+
+		/**
+		 * Allocate resources to processes
+		 */
+		Resource rA = new Resource(123, "Memory", true, 2);
+		Resource rB = new Resource(234, "Disk", true, 3);
+		Resource rC = new Resource(345, "CD ROM", false, 3);
+		Resource rD = new Resource(456, "Processor", true, 2);
+		ResourceAllocation allocate = new ResourceAllocation();
+
+		/**
+		 * Add created resources and processes to their respective lists
+		 */
+
+		rList.add(rA);
+		rList.add(rB);
+		rList.add(rC);
+		rList.add(rD);
+		
+		pList.add(p1);
+		pList.add(p2);
+
+		/*
+		 * //** create the snapshot of the resources and process
+		 */
+		ResourceGraphVisualiser render = new ResourceGraphVisualiser();
+		ResourceSnapshotView snap = new ResourceSnapshotView(rList, pList);
+		render.plotResource(snap);
 		Thread.sleep(1000);
-		
-		r1.addInstance();
-		render.plotResource(snap,r1.getDispObj());
+
+		// Allocate single instance of resource 123 to p1
+		allocate.issueInstance(p1, rA);
+		snap = new ResourceSnapshotView(rList, pList);
+		render.plotResource(snap);
+
 		Thread.sleep(1000);
-				
-		r3.issueInstance(p1);
-		//render.plotResource(snap);
-		//Thread.sleep(1000);
-				
-		r4.issueInstance(p1);
-		//render.plotResource(snap);
-		//Thread.sleep(1000);
-		
-		r2.issueInstance(p2);
-		//Thread.sleep(1000);
-		
-		r2.issueInstance(p1);
-		
-		r4.issueInstance(p1);
-		
-		r2.addInstance();
-		
-		r4.issueInstance(p2);
-		
-		r4.addInstance();
-		
-		r1.addInstance();
 
+		// Allocate single instance of resource 234 to p1
+		allocate.issueInstance(p1, rB);
+		snap = new ResourceSnapshotView(rList, pList);
+		render.plotResource(snap);
 
-		//render.plotResource(snap,status);
+		Thread.sleep(1000);
+
+		// Deallocate single instance of resource 234 from p1
+		allocate.relinquishInstance(p1, rB);
+		snap = new ResourceSnapshotView(rList, pList);
+		render.plotResource(snap);
+
+		Thread.sleep(1000);
+
+		rC.setAvailability(true);
+		snap = new ResourceSnapshotView(rList, pList);
+		render.plotResource(snap);
+
+		/*
+		 * Thread.sleep(1000);
+		 * 
+		 * rC.addInstance(); snap = new ResourceSnapshotView(rlist, plist);
+		 * render.plotResource(snap);
+		 * 
+		 * Thread.sleep(1000);
+		 * 
+		 * rD.removeInstance(); snap = new ResourceSnapshotView(rlist, plist);
+		 * render.plotResource(snap);
+		 */
 	}
 
 }
