@@ -1,0 +1,11 @@
+1,r1,TRUE,3
+2,r2,TRUE,4
+3,r3,TRUE,3
+1,p1,,
+2,p2,,
+3,,,
+allocate,r2,p1,
+deallocate,r1,p1,
+allocate,r2,p2,
+allocate,r1,p2,
+deallocate,r2,p1,

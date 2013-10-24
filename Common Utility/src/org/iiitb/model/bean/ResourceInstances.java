@@ -14,17 +14,17 @@ public class ResourceInstances extends Resource{
 
 	protected int instances;
 	//ResourceSnapshotView view = new ResourceSnapshotView();
-	DisplayStatus dispObj = new DisplayStatus(100,750,50,50);
+	//DisplayStatus dispObj = new DisplayStatus(100,750,50,50);
 
 
-	public DisplayStatus getDispObj() {
+	/*public DisplayStatus getDispObj() {
 		return dispObj;
 	}
 
 	public void setDispObj(DisplayStatus dispObj) {
 		this.dispObj = dispObj;
 	}
-
+*/
 	public String getInstances() {
 		return Integer.toString(instances);
 	}
@@ -52,7 +52,7 @@ public class ResourceInstances extends Resource{
 		setInstances(instances - 1);
 		System.out.println("Instance of "+getResourceName()+" allocated to " + p.getpName());
 		String status = "Instance of "+getResourceName()+" allocated to " + p.getpName();
-		dispObj.setContent(status);
+		//dispObj.setContent(status);
 		}
 		else{
 			System.out.println("Resource "+ getResourceName()+" unavailable");
