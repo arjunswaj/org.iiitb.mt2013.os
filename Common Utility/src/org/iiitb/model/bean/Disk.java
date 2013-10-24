@@ -3,6 +3,8 @@ package org.iiitb.model.bean;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iiitb.controller.util.DiskVisualiser;
+
 public class Disk {
 	
 	Map<Integer,Cylinder> diskobj ;
@@ -29,6 +31,7 @@ public class Disk {
 		Sector temp= diskobj.get(cylinder).getCylinderobj().get(sector);
 		if(!temp.isInUse()){
 			temp.setInUse(true);
+			DiskVisualiser.setContent("Adding Sector "+sector+" to cylinder "+cylinder);
 			return true;
 		}
 		return false;
@@ -39,6 +42,7 @@ public class Disk {
 		Sector temp= diskobj.get(cylinder).getCylinderobj().get(sector);
 		if(temp.isInUse()){
 			temp.setInUse(false);
+			DiskVisualiser.setContent("Removing Sector "+sector+" from cylinder "+cylinder);
 			return true;
 		}
 		return false;
