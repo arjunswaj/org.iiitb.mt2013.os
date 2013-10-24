@@ -22,7 +22,6 @@ import javax.swing.JTextArea;
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.Resource;
 import org.iiitb.model.bean.ResourceAllocation;
-import org.iiitb.view.DisplayStatus;
 import org.iiitb.view.ResourceSnapshotView;
 import org.iiitb.view.consts.ResourceViewConsts;
 

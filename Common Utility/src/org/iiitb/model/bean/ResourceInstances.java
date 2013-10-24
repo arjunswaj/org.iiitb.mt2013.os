@@ -1,6 +1,5 @@
 package org.iiitb.model.bean;
 
-import org.iiitb.view.DisplayStatus;
 import org.iiitb.view.ResourceSnapshotView;
 
 
