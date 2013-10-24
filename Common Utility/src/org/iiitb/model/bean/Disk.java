@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iiitb.controller.util.DiskVisualiser;
+import org.iiitb.controller.util.ProcessDiskVisualizer;
 
 public class Disk {
 	
@@ -24,6 +25,22 @@ public class Disk {
 
 	public void setDiskobj(Map<Integer, Cylinder> diskobj) {
 		this.diskobj = diskobj;
+	}
+	//Use this method only for process and disk integration
+	public Sector fetchResource(int cylinder,int sector){
+		if(occupySector(cylinder, sector)){
+		ProcessDiskVisualizer.setContent("Adding Sector "+sector+" to cylinder "+cylinder);
+		return diskobj.get(cylinder).getCylinderobj().get(sector);
+		}
+		return null;
+	}
+	
+	public Sector releaseResource(int cylinder,int sector){
+		if(releaseSector(cylinder, sector)){
+			ProcessDiskVisualizer.setContent("Removing Sector "+sector+" from cylinder "+cylinder);
+			return diskobj.get(cylinder).getCylinderobj().get(sector);
+		}
+		return null;
 	}
 	
 	public boolean occupySector(int cylinder,int sector){
