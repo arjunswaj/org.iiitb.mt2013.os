@@ -7,6 +7,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -86,4 +92,73 @@ public void plot(DiskSnapshot snapshot){
 		window.setVisible(true);
 	}
 
+
+public void readDiskFromFile(File file) throws InterruptedException, IOException {
+	
+	int numofcylinders=0;
+	int numofsectors=0;
+	int sectorsize=0;
+	int currentcylinder=0;
+	int currentsector=0;
+	String type;
+	
+
+	BufferedReader bufferedReader = null;
+	
+		bufferedReader = new BufferedReader(new FileReader(file));
+	
+	
+	String line = null;
+	
+		line = bufferedReader.readLine();
+	try{
+	
+	StringTokenizer st1 = new StringTokenizer(line, ",");
+	
+	numofcylinders=Integer.parseInt(st1.nextToken());
+	numofsectors=Integer.parseInt(st1.nextToken());
+	sectorsize=Integer.parseInt(st1.nextToken());
+	//System.out.println(sectorsize);
+	
+	
+	
+	DiskSnapshot snap = new DiskSnapshot(numofcylinders,numofsectors,sectorsize);
+	
+	
+		
+			while (null != (line = bufferedReader.readLine())) {
+
+				StringTokenizer st = new StringTokenizer(line, ",");
+				type=st.nextToken();
+				String o = new String("o");
+				
+				if(o.equalsIgnoreCase(type)){
+					
+				    currentcylinder=Integer.parseInt(st.nextToken());
+				    currentsector=Integer.parseInt(st.nextToken());
+				    //System.out.println(currentcylinder+" "+currentsector);
+				    snap.getDisk().occupySector(currentcylinder, currentsector);
+				    //plot(snap);
+				    //plot(snap,"O");
+				    plot(snap);
+				    
+				}
+				else
+				{
+					currentcylinder=Integer.parseInt(st.nextToken());
+					currentsector=Integer.parseInt(st.nextToken());
+					//System.out.println(currentcylinder+" "+currentsector);
+					snap.getDisk().releaseSector(currentcylinder, currentsector);
+					plot(snap);
+					//plot(snap,"R");
+				}
+				
+				Thread.sleep(1000);
+			}
+	}
+catch(NoSuchElementException e ){
+	System.out.println("invalid input field");
+	
+}
+}
 }
