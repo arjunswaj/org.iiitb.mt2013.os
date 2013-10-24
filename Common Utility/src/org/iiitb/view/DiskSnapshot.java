@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 
+import org.iiitb.controller.util.DiskVisualiser;
 import org.iiitb.model.bean.Cylinder;
 import org.iiitb.model.bean.Disk;
 import org.iiitb.model.bean.Sector;
