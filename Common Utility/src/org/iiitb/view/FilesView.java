@@ -109,10 +109,9 @@ public class FilesView extends JComponent {
 		for (Object object : fileList) {
 			Files files = (Files) object;
 
-			for (FileUnit fileUnit : files.getFileUnits()) {
-				IndexedFileUnit indexedFileUnit = (IndexedFileUnit) fileUnit;
+			for (FileUnit fileUnit : files.getFileUnits()) {				
 
-				int yCoOrd = (int) ((double) (indexedFileUnit.getIndex() * fileSystem
+				int yCoOrd = (int) ((double) (fileUnit.getIndex() * fileSystem
 						.getFileUnitSize()) / scalingFactor)
 						+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
 
@@ -128,7 +127,7 @@ public class FilesView extends JComponent {
 				int ySegmentName = ((2 * yCoOrd) + height) / 2;
 
 				g.setColor(new Color(0xCC, 0xCC, 0xCC));
-				allocationSpecificLabels(g, files, indexedFileUnit,
+				allocationSpecificLabels(g, files, fileUnit,
 						xSegmentName, ySegmentName);				
 
 				g.setColor(new Color(0x00, 0x00, 0x00));
