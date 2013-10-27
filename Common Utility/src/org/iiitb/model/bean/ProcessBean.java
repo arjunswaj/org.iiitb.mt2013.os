@@ -42,6 +42,7 @@ public class ProcessBean {
 	 */
 	private ProcessState processState;
 
+	int logicalAddressSpacesize;
 	/**
 	 * Memory Associated with Process
 	 */
