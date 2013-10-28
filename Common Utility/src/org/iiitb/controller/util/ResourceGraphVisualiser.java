@@ -45,12 +45,7 @@ public class ResourceGraphVisualiser {
 	}*/
 	
 	public void plotResource(ResourceSnapshotView snapshot, String action){
-		/*window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setBounds(ResourceViewConsts.WINDOW_X,ResourceViewConsts.WINDOW_Y,
-				ResourceViewConsts.WINDOW_WIDTH,ResourceViewConsts.WINDOW_HEIGHT);
-		window.getContentPane().removeAll();
-		window.getContentPane().add(snapshot);
-		window.setVisible(true);*/
+
 		/*
 		 * Adding text area to display action message
 		 */
