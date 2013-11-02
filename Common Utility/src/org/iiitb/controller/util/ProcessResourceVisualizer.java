@@ -1,18 +1,22 @@
 package org.iiitb.controller.util;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.iiitb.view.ProcessSnapshotView;
 import org.iiitb.view.ResourceSnapshotView;
 import org.iiitb.view.consts.ResourceViewConsts;
+import org.iiitb.view.consts.ViewConsts;
 
 public class ProcessResourceVisualizer {
 	
@@ -22,24 +26,76 @@ public class ProcessResourceVisualizer {
 	GridBagLayout gb;
 	GridBagConstraints gbc;
 	
+	DiskVisualiser dv = new DiskVisualiser();
 	
-	public void plotProcess(ProcessSnapshotView psnapshot, String action){
+	static JTextArea text = new JTextArea(100,100);
+
+		
+	public JTextArea getText() {
+			return text;
+		}
+	public  void setText(JTextArea text) {
+			text = text;
+		}
+
+	public static void setContent(String s){
+		StringBuilder str = new StringBuilder(text.getText());
+		str.append(s+"\n");
+		//text.setFont(new Font(str.toString(), 5, 18));
+		text.setText(str.toString());
+	}
+	
+	
+	public void plotProcess(ProcessSnapshotView psnapshot, ResourceSnapshotView rsnapshot){
 		/*
 		 * Adding text area to display action message
 		 */
-		panel = new JPanel(new GridBagLayout());
-		gb = new GridBagLayout();
-		gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.BOTH;
-
-		actionText = new JTextArea(ResourceViewConsts.TEXT_ROWS,
-				ResourceViewConsts.TEXT_COLUMNS);
-		actionText.setBackground(new Color(0, 20, 20));
-		actionText.setForeground(new Color(255, 255, 255));
-		actionText.setFont(new Font(action, 5, 18));
-		actionText.setMargin(new Insets(30, 250, 0, 20));
-		actionText.setText(action);
-		actionText.setEditable(false);
+		setText(dv.getText());
+		JPanel panel = new JPanel(new GridBagLayout());
+			GridBagConstraints c = new GridBagConstraints();
+			
+			JLabel heading = new JLabel("PROCESS AND RESOURCE SNAPSHOT");
+			heading.setPreferredSize(new Dimension(20,20));
+			c.gridx=0;
+			c.gridy=0;
+			c.weightx=0.05;
+			c.weighty=0.05;
+			c.anchor = GridBagConstraints.ABOVE_BASELINE;
+			//c.fill = GridBagConstraints.BOTH;
+			panel.add(heading,c);
+			
+			
+			c.gridx=0;
+			c.gridy=1;
+			c.weightx=1;
+			c.weighty=0.5;
+			c.anchor = GridBagConstraints.CENTER;
+			c.fill = GridBagConstraints.BOTH;
+			
+			panel.add(psnapshot,c);
+			
+			
+			
+			
+			c.gridx=0;
+			c.gridy=2;
+			c.weightx=0.5;
+			c.weighty=0.5;
+			c.anchor = GridBagConstraints.CENTER;
+			c.fill = GridBagConstraints.BOTH;
+			panel.add(rsnapshot,c);
+			
+			
+			text.setEditable(false);
+			c.gridx=1;
+			c.gridy=2;
+			c.weightx=0.2;
+			c.weighty=0.2;
+			c.anchor = GridBagConstraints.CENTER;
+			c.fill = GridBagConstraints.BOTH;
+			//text.setBounds(0, 0, 500, 500);
+			//window.setLayout(new BoxLayout());
+			panel.add(text,c);
 
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ResourceViewConsts.WINDOW_X,
@@ -47,32 +103,27 @@ public class ProcessResourceVisualizer {
 				ResourceViewConsts.WINDOW_HEIGHT);
 		window.getContentPane().removeAll();
 
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 0.7;
-		gbc.weighty = 0.7;
-		panel.add(psnapshot, gbc);
+		JScrollPane scrollPane = new JScrollPane(panel);
 		
-		/*gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 0.3;
-		gbc.weighty = 0.3;
-		panel.add(rsnapshot,gbc);*/
+		
+		scrollPane.setPreferredSize(new Dimension(
+				ViewConsts.PROCESS_SEGMENT_SCROLL_WIDTH,
+				ViewConsts.PROCESS_SEGMENT_SCROLL_HEIGHT));
 
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.ipadx = 200;
-		gbc.ipady = 50;
-		gbc.weightx = 0.2;
-		gbc.weighty = 0.2;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		panel.setPreferredSize(new Dimension(
+				ViewConsts.PROCESS_SEGMENT_PANEL_WIDTH,
+				ViewConsts.PROCESS_SEGMENT_PANEL_HEIGHT));
 
-		panel.add(actionText, gbc);
-		window.getContentPane().add(panel);
-
+	/*	window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
+				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
+				ViewConsts.PROCESS_SEGMENT_WINDOW_WIDTH,
+				ViewConsts.PROCESS_SEGMENT_WINDOW_HEIGHT);*/
+		
+		window.setExtendedState(window.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+		
+		window.getContentPane().removeAll();
+		window.getContentPane().add(scrollPane);
+		window.repaint();
 		window.setVisible(true);
 	}
 

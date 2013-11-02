@@ -35,14 +35,14 @@ public class ResourceGraphVisualiser {
 	GridBagLayout gb;
 	GridBagConstraints gbc;
 	
-	/*public void plotResource(ResourceSnapshotView snapshot){
+	public void plotResource(ResourceSnapshotView snapshot){
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ResourceViewConsts.WINDOW_X,ResourceViewConsts.WINDOW_Y,
 				ResourceViewConsts.WINDOW_WIDTH,ResourceViewConsts.WINDOW_HEIGHT);
 		window.getContentPane().removeAll();
 		window.getContentPane().add(snapshot);
 		window.setVisible(true);
-	}*/
+	}
 	
 	public void plotResource(ResourceSnapshotView snapshot, String action){
 
@@ -59,7 +59,7 @@ public class ResourceGraphVisualiser {
 		actionText.setBackground(new Color(0, 20, 20));
 		actionText.setForeground(new Color(255, 255, 255));
 		actionText.setFont(new Font(action, 5, 18));
-		actionText.setMargin(new Insets(30, 250, 0, 20));
+		actionText.setMargin(new Insets(0, 250, 0, 20));
 		actionText.setText(action);
 		actionText.setEditable(false);
 
@@ -71,18 +71,23 @@ public class ResourceGraphVisualiser {
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		/*gbc.ipadx = 150;
+		gbc.ipady = 200;*/
 		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 0.5;
-		gbc.weighty = 0.5;
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
 		panel.add(snapshot, gbc);
 
+		gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.anchor = GridBagConstraints.SOUTH;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		gbc.ipadx = 200;
-		gbc.ipady = 150;
-		gbc.weightx = 0.3;
-		gbc.weighty = 0.3;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.ipadx = 100;
+		gbc.ipady = 100;
+		gbc.weightx = 0.0;
+		gbc.weighty = 0.0;
+		
 
 		panel.add(actionText, gbc);
 		window.getContentPane().add(panel);
