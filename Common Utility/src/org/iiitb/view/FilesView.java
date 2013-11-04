@@ -13,7 +13,7 @@ import org.iiitb.model.bean.files.LinkedFileUnit;
 import org.iiitb.view.consts.ViewConsts;
 
 /**
- * Segment View. Plots the Segments
+ * fileSystem View. Plots the fileSystems
  * 
  * @author arjun
  * 
@@ -30,7 +30,7 @@ public class FilesView extends JComponent {
 	public FilesView(FileSystem fileSystem) {
 		this.fileSystem = fileSystem;
 		this.scalingFactor = ((double) this.fileSystem.getDiskSize())
-				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+				/ (ViewConsts.FILE_SYSTEM_WINDOW_HEIGHT - 100);
 	}
 
 	public void allocationSpecificLabels(Graphics g, Files files,
@@ -75,8 +75,8 @@ public class FilesView extends JComponent {
 			break;
 
 		}
-		g.drawString(title, ViewConsts.SEGMENT_TITLE_X_MARGIN,
-				ViewConsts.SEGMENT_TITLE_Y_MARGIN);
+		g.drawString(title, ViewConsts.FILE_SYSTEM_TITLE_X_MARGIN,
+				ViewConsts.FILE_SYSTEM_TITLE_Y_MARGIN);
 	}
 
 	public void paint(Graphics g) {
@@ -88,17 +88,17 @@ public class FilesView extends JComponent {
 
 		allocationSpecificTitles(g);
 
-		g.draw3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN,
-				ViewConsts.SEGMENT_VIEW_WIDTH, height
+		g.draw3DRect(ViewConsts.FILE_SYSTEM_VIEW_X_MARGIN,
+				ViewConsts.FILE_SYSTEM_VIEW_Y_MARGIN,
+				ViewConsts.FILE_SYSTEM_VIEW_WIDTH, height
 						+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS, true);
 
-		g.drawString(String.valueOf(0), ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN);
+		g.drawString(String.valueOf(0), ViewConsts.FILE_SYSTEM_TEXT_LEFT_X_MARGIN,
+				ViewConsts.FILE_SYSTEM_VIEW_Y_MARGIN);
 
 		g.drawString(String.valueOf(this.fileSystem.getDiskSize()),
-				ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN + height
+				ViewConsts.FILE_SYSTEM_TEXT_LEFT_X_MARGIN,
+				ViewConsts.FILE_SYSTEM_VIEW_Y_MARGIN + height
 						+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 
 		Iterable fileList = fileSystem.getFiles();
@@ -113,28 +113,28 @@ public class FilesView extends JComponent {
 
 				int yCoOrd = (int) ((double) (fileUnit.getIndex() * fileSystem
 						.getFileUnitSize()) / scalingFactor)
-						+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
+						+ ViewConsts.FILE_SYSTEM_VIEW_Y_MARGIN;
 
 				g.setColor(new Color(0x00, clr, clr));
-				g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
-						ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
+				g.fill3DRect(ViewConsts.FILE_SYSTEM_VIEW_X_MARGIN, yCoOrd,
+						ViewConsts.FILE_SYSTEM_VIEW_WIDTH, height, true);
 
 				g.setColor(new Color(0x00, 0x00, 0x00));
-				g.draw3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
-						ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
+				g.draw3DRect(ViewConsts.FILE_SYSTEM_VIEW_X_MARGIN, yCoOrd,
+						ViewConsts.FILE_SYSTEM_VIEW_WIDTH, height, true);
 
-				int xSegmentName = (ViewConsts.SEGMENT_VIEW_X_MARGIN + ViewConsts.SEGMENT_VIEW_WIDTH) / 3;
-				int ySegmentName = ((2 * yCoOrd) + height) / 2;
+				int xfileSystemName = (ViewConsts.FILE_SYSTEM_VIEW_X_MARGIN + ViewConsts.FILE_SYSTEM_VIEW_WIDTH) / 3;
+				int yfileSystemName = ((2 * yCoOrd) + height) / 2;
 
 				g.setColor(new Color(0xCC, 0xCC, 0xCC));
 				allocationSpecificLabels(g, files, fileUnit,
-						xSegmentName, ySegmentName);				
+						xfileSystemName, yfileSystemName);				
 
 				g.setColor(new Color(0x00, 0x00, 0x00));
 				g.drawString(
 						String.valueOf(fileUnit.getIndex()
 								* fileSystem.getFileUnitSize()),
-						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd
+						ViewConsts.FILE_SYSTEM_TEXT_LEFT_X_MARGIN, yCoOrd
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 			}
 			clr += 0x30;
