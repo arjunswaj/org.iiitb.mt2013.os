@@ -43,7 +43,7 @@ public class ProcessSegmentedMemoryIntegration
 		// Getting input in integer format
 		processCount = inputReader.nextInt();
 
-		HashMap<Integer, List<SegmentedMemoryReference>> references = new HashMap<>(); 
+		HashMap<Integer, List<SegmentedMemoryReference>> references = new HashMap(); 
 		for (count = 0; count < processCount; ++count)
 		{
 			int size = 10;
