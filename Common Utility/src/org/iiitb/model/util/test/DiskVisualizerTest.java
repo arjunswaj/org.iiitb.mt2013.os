@@ -15,15 +15,34 @@ public class DiskVisualizerTest {
 /*		snap.getDisk().occupySector(2,4);*/
 		
 	visulaizer.plot(snap);
-	Thread.sleep(2000);
+	Thread.sleep(1000);
 	snap.getDisk().releaseSector(1, 2);
 	visulaizer.plot(snap);
-	Thread.sleep(2000);
+	Thread.sleep(1000);
+	
 	snap.getDisk().occupySector(5, 1);
 	visulaizer.plot(snap);
-	Thread.sleep(2000);
+	Thread.sleep(1000);
+	
 	snap.getDisk().occupySector(4, 2);
 	visulaizer.plot(snap);
+	Thread.sleep(1000);
+	
+	snap.getDisk().occupySector(8, 5);
+	visulaizer.plot(snap);
+	Thread.sleep(1000);
+	
+	snap.getDisk().releaseSector(4, 2);
+	visulaizer.plot(snap);
+	Thread.sleep(1000);
+	
+	snap.getDisk().occupySector(6, 11);
+	visulaizer.plot(snap);
+	
+	Thread.sleep(1000);
+	snap.getDisk().occupySector(9, 7);
+	visulaizer.plot(snap);
+	Thread.sleep(1000);
 	}
 
 }
