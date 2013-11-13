@@ -27,10 +27,10 @@ public class FileSystemGrapher {
 	public void plotGraph(FileSystem fileSystem) {
 		JComponent view = new FilesView(fileSystem);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
-				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
-				ViewConsts.SEGMENT_WINDOW_WIDTH,
-				ViewConsts.SEGMENT_WINDOW_HEIGHT);
+		window.setBounds(ViewConsts.FILE_SYSTEM_WINDOW_X_OFFSET,
+				ViewConsts.FILE_SYSTEM_WINDOW_Y_OFFSET,
+				ViewConsts.FILE_SYSTEM_WINDOW_WIDTH,
+				ViewConsts.FILE_SYSTEM_WINDOW_HEIGHT);
 		window.getContentPane().add(view);
 		window.setVisible(true);
 	}

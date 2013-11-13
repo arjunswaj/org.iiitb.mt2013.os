@@ -3,6 +3,7 @@
 	<name>Common Utility</name>
 	<comment></comment>
 	<projects>
+		<project>ProcessScheduling</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -21,7 +21,7 @@ public class ProcViewConsts {
 	public static final int WINDOW_X = 10;
 	public static final int WINDOW_Y = 10;
 	public static final int WINDOW_WIDTH = 1000;
-	public static final int WINDOW_HEIGHT = 1000;
+	public static final int WINDOW_HEIGHT = 700;
 	
 	public static final int TIME_LABEL_X = 900;
 	public static final int TIME_LABEL_Y = 30;

@@ -41,8 +41,10 @@ public class ProcessBean {
 	 * Life cycle State of the process
 	 */
 	private ProcessState processState;
-
-	int logicalAddressSpacesize;
+	/**
+	 * Size of logical address space of a process
+	 */
+	private long logicalAddressSpacesize;
 	/**
 	 * Memory Associated with Process
 	 */
@@ -129,6 +131,22 @@ public class ProcessBean {
 
 	public void setMemoryUnit(Memory<MemorySegment> memoryUnit) {
 		this.memoryUnit = memoryUnit;
+	}
+
+	/**
+	 * @return the logicalAddressSpacesize
+	 */
+	public long getLogicalAddressSpacesize()
+	{
+		return logicalAddressSpacesize;
+	}
+
+	/**
+	 * @param logicalAddressSpacesize the logicalAddressSpacesize to set
+	 */
+	public void setLogicalAddressSpacesize(long logicalAddressSpacesize)
+	{
+		this.logicalAddressSpacesize = logicalAddressSpacesize;
 	}
 
 }
