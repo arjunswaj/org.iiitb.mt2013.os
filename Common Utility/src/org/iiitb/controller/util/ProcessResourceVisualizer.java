@@ -1,32 +1,22 @@
 package org.iiitb.controller.util;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import org.iiitb.view.ProcessSnapshotView;
-import org.iiitb.view.ResourceSnapshotView;
+import org.iiitb.view.ResourceProcessView;
 import org.iiitb.view.consts.ResourceViewConsts;
-import org.iiitb.view.consts.ViewConsts;
 
 public class ProcessResourceVisualizer {
 	
 	JFrame window = new JFrame();
 	JPanel panel;
-	JTextArea actionText;
-	GridBagLayout gb;
-	GridBagConstraints gbc;
-	
-	DiskVisualiser dv = new DiskVisualiser();
 	
 	static JTextArea text = new JTextArea(100,100);
 
@@ -35,7 +25,7 @@ public class ProcessResourceVisualizer {
 			return text;
 		}
 	public  void setText(JTextArea text) {
-			text = text;
+			ProcessResourceVisualizer.text = text;
 		}
 
 	public static void setContent(String s){
@@ -46,84 +36,47 @@ public class ProcessResourceVisualizer {
 	}
 	
 	
-	public void plotProcess(ProcessSnapshotView psnapshot, ResourceSnapshotView rsnapshot){
-		/*
-		 * Adding text area to display action message
-		 */
-		setText(dv.getText());
-		JPanel panel = new JPanel(new GridBagLayout());
-			GridBagConstraints c = new GridBagConstraints();
-			
-			JLabel heading = new JLabel("PROCESS AND RESOURCE SNAPSHOT");
-			heading.setPreferredSize(new Dimension(20,20));
-			c.gridx=0;
-			c.gridy=0;
-			c.weightx=0.05;
-			c.weighty=0.05;
-			c.anchor = GridBagConstraints.ABOVE_BASELINE;
-			//c.fill = GridBagConstraints.BOTH;
-			panel.add(heading,c);
-			
-			
-			c.gridx=0;
-			c.gridy=1;
-			c.weightx=1;
-			c.weighty=0.5;
-			c.anchor = GridBagConstraints.CENTER;
-			c.fill = GridBagConstraints.BOTH;
-			
-			panel.add(psnapshot,c);
-			
-			
-			
-			
-			c.gridx=0;
-			c.gridy=2;
-			c.weightx=0.5;
-			c.weighty=0.5;
-			c.anchor = GridBagConstraints.CENTER;
-			c.fill = GridBagConstraints.BOTH;
-			panel.add(rsnapshot,c);
-			
-			
-			text.setEditable(false);
-			c.gridx=1;
-			c.gridy=2;
-			c.weightx=0.2;
-			c.weighty=0.2;
-			c.anchor = GridBagConstraints.CENTER;
-			c.fill = GridBagConstraints.BOTH;
-			//text.setBounds(0, 0, 500, 500);
-			//window.setLayout(new BoxLayout());
-			panel.add(text,c);
-
+	public void plotProcess(ResourceProcessView snap, String action){
+	
+		panel = new JPanel(new GridBagLayout());
+		JTextArea actionText;
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		actionText = new JTextArea(ResourceViewConsts.TEXT_ROWS,
+				ResourceViewConsts.TEXT_COLUMNS);
+		actionText.setBackground(new Color(0, 20, 20));
+		actionText.setForeground(new Color(255, 255, 255));
+		actionText.setFont(new Font(action, 5, 18));
+		actionText.setMargin(new Insets(0, 250, 0, 20));
+		actionText.setText(action);
+		actionText.setEditable(false);
+		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ResourceViewConsts.WINDOW_X,
 				ResourceViewConsts.WINDOW_Y, ResourceViewConsts.WINDOW_WIDTH,
 				ResourceViewConsts.WINDOW_HEIGHT);
 		window.getContentPane().removeAll();
-
-		JScrollPane scrollPane = new JScrollPane(panel);
 		
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx=0;
+		gbc.gridy=0;
+		gbc.weightx=1.0;
+		gbc.weighty=1.0;
+		gbc.anchor = GridBagConstraints.CENTER;
+		panel.add(snap, gbc);
 		
-		scrollPane.setPreferredSize(new Dimension(
-				ViewConsts.PROCESS_SEGMENT_SCROLL_WIDTH,
-				ViewConsts.PROCESS_SEGMENT_SCROLL_HEIGHT));
-
-		panel.setPreferredSize(new Dimension(
-				ViewConsts.PROCESS_SEGMENT_PANEL_WIDTH,
-				ViewConsts.PROCESS_SEGMENT_PANEL_HEIGHT));
-
-	/*	window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
-				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
-				ViewConsts.PROCESS_SEGMENT_WINDOW_WIDTH,
-				ViewConsts.PROCESS_SEGMENT_WINDOW_HEIGHT);*/
+		gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.anchor = GridBagConstraints.SOUTH;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.ipadx = 100;
+		gbc.ipady = 100;
+		gbc.weightx = 0.0;
+		gbc.weighty = 0.0;
+		panel.add(actionText, gbc);
 		
-		window.setExtendedState(window.getExtendedState()|JFrame.MAXIMIZED_BOTH);
-		
-		window.getContentPane().removeAll();
-		window.getContentPane().add(scrollPane);
-		window.repaint();
+		window.getContentPane().add(panel);
 		window.setVisible(true);
 	}
 

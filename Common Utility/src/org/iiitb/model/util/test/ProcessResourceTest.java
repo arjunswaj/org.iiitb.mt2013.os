@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.iiitb.controller.util.ProcessResourceVisualizer;
-import org.iiitb.controller.util.ResourceGraphVisualiser;
-import org.iiitb.controller.util.SnapshotRenderer;
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.Resource;
 import org.iiitb.model.bean.ResourceAllocation;
-import org.iiitb.view.ProcessSnapshotView;
-import org.iiitb.view.ResourceSnapshotView;
+import org.iiitb.view.ResourceProcessView;
+
 
 public class ProcessResourceTest {
 	
@@ -24,7 +22,6 @@ public static void main(String[] args) throws InterruptedException{
 	Resource rB = new Resource(234, "Disk", true, 3);
 	Resource rC = new Resource(345, "CD ROM", false, 3);
 	Resource rD = new Resource(456, "Processor", true, 2);
-	//Resource rF = new Resource(567, "File", true, 2);
 	ResourceAllocation allocate = new ResourceAllocation();
 	
 	/**
@@ -54,13 +51,48 @@ public static void main(String[] args) throws InterruptedException{
 	pList.add(p2);
 	pList.add(p3);
 
-	ResourceSnapshotView rsnap = new ResourceSnapshotView(rList);
-	ProcessSnapshotView psnap = new ProcessSnapshotView(pList,p1,null,0);
+	
+	ResourceProcessView psnap = new ResourceProcessView(pList,p1,null,0);
 	ProcessResourceVisualizer rRenderer = new ProcessResourceVisualizer();
-	rRenderer.plotProcess(psnap, rsnap);
 	
 	
+	allocate.issueInstance(p1, rA);	
+	rRenderer.plotProcess(psnap,"Adding " + rA.getResourceName()+" to "+p1.getpName());
+	Thread.sleep(2500);
+	allocate.issueInstance(p1, rB);
+	rRenderer.plotProcess(psnap,"Adding " + rB.getResourceName()+" to "+p1.getpName());
+	Thread.sleep(2500);
+	allocate.issueInstance(p1, rD);
+	rRenderer.plotProcess(psnap,"Adding " + rD.getResourceName()+" to "+p1.getpName());
+	Thread.sleep(2500);
+	allocate.issueInstance(p1, rA);
+	rRenderer.plotProcess(psnap,"Adding " + rA.getResourceName()+" to "+p1.getpName());
+	Thread.sleep(2500);
 	
+	
+	blist.add(p1);
+	pList.remove(p2);
+	rRenderer.plotProcess(psnap,"Adding " + p1.getpName()+" to blocked queue"+"\n"+"Removing " + p2.getpName()+" from ready queue");
+	psnap = new ResourceProcessView(pList,p2,blist,3);
+	Thread.sleep(2500);
+	allocate.issueInstance(p2, rD);
+	rRenderer.plotProcess(psnap,"Adding " + rD.getResourceName()+" to "+p2.getpName());
+	Thread.sleep(2500);
+	
+	blist.add(p2);
+	blist.remove(p1);
+	rRenderer.plotProcess(psnap,"Adding " + p2.getpName()+" to blocked queue"+"\n"+"Removing " + p1.getpName()+" from blocked queue");
+	psnap = new ResourceProcessView(pList,p1,blist,6);
+	Thread.sleep(2500);
+	allocate.relinquishInstance(p1, rD);
+	rRenderer.plotProcess(psnap,"Removing "+ rD.getResourceName() + " from "+ p1.getpName());
+	Thread.sleep(2500);
+	
+	blist.add(p1);
+	pList.remove(p3);
+	rRenderer.plotProcess(psnap,"Adding " + p1.getpName()+" to blocked queue"+"\n"+"Removing " + p3.getpName()+" from ready queue");
+	psnap = new ResourceProcessView(pList,p3,blist,6);
+	rRenderer.plotProcess(psnap,"No resources allocated to the process");
 	
 
 }

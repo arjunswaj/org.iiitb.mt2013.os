@@ -1,11 +1,12 @@
 package org.iiitb.view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JComponent;
 
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.ReadyQueue;
@@ -13,8 +14,14 @@ import org.iiitb.model.bean.Resource;
 import org.iiitb.view.consts.ProcViewConsts;
 import org.iiitb.view.consts.ResourceViewConsts;
 
-public class ResourceProcessView {
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
+public class ResourceProcessView extends JComponent{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3824350326722797495L;
 	ReadyQueue ready;
 	ProcessBean current;
 	List<ProcessBean> blocked;
@@ -36,12 +43,6 @@ public class ResourceProcessView {
 		this.time = time;
 
 	}
-
-	/*
-	 * //hnb public ResourceProcessView(List<ProcessSnapshotView>
-	 * processSnapshotList){ this.processSnapshotList=processSnapshotList; }
-	 * //hnb
-	 */
 
 	public ResourceProcessView(ProcessSnapshotView snap) {
 		this.ready = snap.ready;
@@ -90,7 +91,6 @@ public class ResourceProcessView {
 	public void paint(Graphics g) {
 
 		
-		
 		/**
 		 * Draw Process life cycle
 		 */
@@ -119,11 +119,11 @@ public class ResourceProcessView {
 		}
 
 		g.setColor(Color.GREEN);
-		g.fill3DRect(ProcViewConsts.CUR_X, ProcViewConsts.CUR_Y + 50,
+		g.fill3DRect(ProcViewConsts.CUR_X, ProcViewConsts.CUR_Y,
 				ProcViewConsts.CUR_BLOCK_WIDTH,
 				ProcViewConsts.CUR_BLOCK_HEIGHT, true);
 		g.setColor(Color.BLACK);
-		g.drawString(current.getpName(), ProcViewConsts.CUR_X + 10,
+		g.drawString(current.getpName(), ProcViewConsts.CUR_X + 15,
 				ProcViewConsts.CUR_Y + 50);
 
 		if (blocked != null) {
@@ -142,27 +142,51 @@ public class ResourceProcessView {
 		/*
 		 * Draw resources
 		 */
-		List<Resource> pResource = current.getResources();
-
-		for (int i = 0; i < pResource.size(); i++) {
-
-			for (int j = 0; j < pResource.size(); j++) {
+		
+		List<Resource> pResource = current.getResources();		
+		Hashtable countResource = new Hashtable();
+		List<Resource> temp = new ArrayList<Resource>();
+		for(int i=0; i< pResource.size();i++){
+			if(countResource.containsKey(pResource.get(i).getRid())){
+				//System.out.println("exists in hash");
+				int newCount = (int) countResource.get(pResource.get(i).getRid());
+				//System.out.println(newCount);
+				countResource.put(pResource.get(i).getRid(),newCount++);
+			}
+			else{
+				int tempCount = 1;
+				countResource.put(pResource.get(i).getRid(),tempCount);
+				temp.add(pResource.get(i));
+			}
+			//System.out.println(countResource.get(pResource.get(i).getRid()));
+		}
+		countResource.clear();
+		if(temp.isEmpty()){
+			g.setFont(new Font("default", Font.BOLD, 22));
+			g.drawString("No resources allocated", ResourceViewConsts.RESOURCE_X
+					 + 350, ResourceViewConsts.RESOURCE_X + 25 + 50 + 300);
+		}else{
+		for (int i = 0; i < temp.size(); i++) {
+			
+			for (int j = 0; j < temp.size(); j++) {
+				
 				int offset = i * ResourceViewConsts.OFFSET_CONST;
 				g.setColor(new Color(0, 200, 100));
 				g.fill3DRect(ResourceViewConsts.RESOURCE_X + offset,
-						ResourceViewConsts.RESOURCE_Y,
+						ResourceViewConsts.RESOURCE_Y+300,
 						ResourceViewConsts.RESOURCE_WIDTH,
 						ResourceViewConsts.RESOURCE_HEIGHT, true);
 				g.setColor(Color.BLACK);
 				g.setFont(new Font("default", Font.BOLD, 16));
 				g.drawString(pResource.get(i).getResourceName(),
 						ResourceViewConsts.RESOURCE_X + offset + 30,
-						ResourceViewConsts.RESOURCE_Y + 25);
-				String noOfInstances = Integer.toString((pResource.get(i)
-						.getNumOfInstance()));
-				g.drawString(noOfInstances, ResourceViewConsts.RESOURCE_X
-						+ offset + 60, ResourceViewConsts.RESOURCE_X + 25 + 50);
+						ResourceViewConsts.RESOURCE_Y + 25 + 300);
+				//String noOfInstances = (String) countResource.get(temp.get(j).getRid());
+				//System.out.println(noOfInstances);
+				/*g.drawString(noOfInstances, ResourceViewConsts.RESOURCE_X
+						+ offset + 60, ResourceViewConsts.RESOURCE_X + 25 + 50 + 300);*/
 			}
+		}
 		}
 
 	}

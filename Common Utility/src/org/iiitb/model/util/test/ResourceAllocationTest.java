@@ -7,7 +7,6 @@ import org.iiitb.controller.util.ResourceGraphVisualiser;
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.Resource;
 import org.iiitb.model.bean.ResourceAllocation;
-import org.iiitb.model.bean.ResourceInstances;
 import org.iiitb.view.ResourceSnapshotView;
 
 public class ResourceAllocationTest {

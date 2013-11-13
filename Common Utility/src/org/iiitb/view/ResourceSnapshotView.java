@@ -30,6 +30,7 @@ public class ResourceSnapshotView extends JComponent {
 	List<ProcessBean> process;
 	JTextArea actionText;
 	ResourceAllocation ra = new ResourceAllocation();
+	boolean flag = false;
 
 	// String action;
 
@@ -42,6 +43,7 @@ public class ResourceSnapshotView extends JComponent {
 
 	public ResourceSnapshotView(List<Resource> resourceSnap) {
 		this.resource = resourceSnap;
+		flag = true;
 	}
 
 	public List<Resource> getResource() {
@@ -62,6 +64,38 @@ public class ResourceSnapshotView extends JComponent {
 
 	public void paint(Graphics g) {
 
+		if(flag){
+			g.setColor(new Color(0, 0, 100));
+			g.setFont(new Font("Arial", Font.BOLD, 20));
+			g.drawString("Resources",
+					ResourceViewConsts.SEGMENT_TITLE_X_MARGIN + 140,
+					ResourceViewConsts.SEGMENT_TITLE_Y_MARGIN + 500);
+
+			Object[] list = resource.toArray();
+			for (int i = 0; i < resource.size(); i++) {
+				int offset = i * ResourceViewConsts.OFFSET_CONST;
+				if (((Resource) list[i]).isAvailability()
+						&& ((Resource) list[i]).getNumOfInstance() > 0) {
+					g.setColor(new Color(0, 200, 100));
+				} else {
+					g.setColor(new Color(255, 0, 50));
+				}
+				g.fill3DRect(ResourceViewConsts.RESOURCE_X + offset,
+						ResourceViewConsts.RESOURCE_Y+300,
+						ResourceViewConsts.RESOURCE_WIDTH,
+						ResourceViewConsts.RESOURCE_HEIGHT, true);
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("default", Font.BOLD, 16));
+				g.drawString(((Resource) list[i]).getResourceName(),
+						ResourceViewConsts.RESOURCE_X + offset + 30,
+						ResourceViewConsts.RESOURCE_Y + 25 + 300);
+				String noOfInstances = Integer.toString(((Resource) list[i])
+						.getNumOfInstance());
+				g.drawString(noOfInstances, ResourceViewConsts.RESOURCE_X + offset
+						+ 60, ResourceViewConsts.RESOURCE_X + 25 + 50 + 300);
+			}
+		}
+		else{
 		/*
 		 * Draw resources
 		 */
@@ -159,4 +193,5 @@ public class ResourceSnapshotView extends JComponent {
 
 		}
 	}
+}
 }
