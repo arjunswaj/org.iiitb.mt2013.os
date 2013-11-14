@@ -90,7 +90,7 @@ public class VerticalProcessSnapshotView extends JComponent{
 		g.drawString("TIME "+getTime(), ProcViewConsts.VERTICAL_TIME_LABEL_X,ProcViewConsts.TIME_LABEL_Y);
 		g.drawString("READY QUEUE", ProcViewConsts.READY_LABEL_X,ProcViewConsts.READY_LABEL_Y);
 		g.drawString("CURRENT PROCESS", ProcViewConsts.VERTICAL_CURRENT_LABEL_X,ProcViewConsts.VERTICAL_CURRENT_LABEL_Y);
-		g.drawString("BLOCKED / WAITING", ProcViewConsts.VERTICAL_BLOCKED_LABEL_X,ProcViewConsts.VERTICAL_BLOCKED_LABEL_Y);
+		g.drawString("FINISHED", ProcViewConsts.VERTICAL_BLOCKED_LABEL_X,ProcViewConsts.VERTICAL_BLOCKED_LABEL_Y);
 		Object[] list = ready.getArray();
 		for(int i =0 ; i<ready.getsize(); i++){
 			
