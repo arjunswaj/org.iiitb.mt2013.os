@@ -1,12 +1,13 @@
-package org.iiitb.model.bean;
+package org.iiitb.model.util.test;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
+import org.iiitb.model.bean.ProcessBean;
+import org.iiitb.model.bean.TimeQuantum;
 import org.iiitb.model.bean.processScheduling.controller.FCFS;
 import org.iiitb.model.bean.segmentation.SegmentTableEntry;
 import org.iiitb.model.bean.segmentation.SegmentedMemoryWrapper;

@@ -34,4 +34,20 @@ public class ProcViewConsts {
 	
 	public static final int BLOCKED_LABEL_X = 800;
 	public static final int BLOCKED_LABEL_Y = 50;
+	
+	
+	public static final int VERTICAL_TIME_LABEL_X = 100;
+	
+	public static final int VERTICAL_CURRENT_LABEL_X = 100;
+  public static final int VERTICAL_CURRENT_LABEL_Y = 270;
+  
+  public static final int VERTICAL_BLOCKED_LABEL_X = 100;
+  public static final int VERTICAL_BLOCKED_LABEL_Y = 435;
+  
+  
+  public static final int VERTICAL_CUR_X = 100;
+  public static final int VERTICAL_CUR_Y = 300;
+  
+  public static final int VERTICAL_BLOCKED_X = 100;
+  public static final int VERTICAL_BLOCKED_Y = 465;
 }

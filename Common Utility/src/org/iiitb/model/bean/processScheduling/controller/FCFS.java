@@ -43,20 +43,21 @@ public class FCFS implements IScheduler
 			readylist.add(processList.get(count));
 		}
 
-		processMemoryVisualiser.plotGraph(readylist, readylist.get(0), null);
+		List<ProcessBean> finishQueue = new ArrayList<ProcessBean>();
+		processMemoryVisualiser.plotGraph(readylist, readylist.get(0), finishQueue);
 		int time = 3;
 		while (readylist.size() > 0)
 		{
 			current = readylist.get(0);
-			readylist.remove(0);
+			finishQueue.add(readylist.remove(0));
 
 			Long[] address = references.get(current.getPid());
 			for (int i = 0; i < address.length; i++)
 			{
-				processMemoryVisualiser.reDraw(readylist, current, null, address[i]);
+				processMemoryVisualiser.reDraw(readylist, current, finishQueue, address[i]);
 				try
 				{
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				}
 				catch (InterruptedException e)
 				{
@@ -64,7 +65,7 @@ public class FCFS implements IScheduler
 					e.printStackTrace();
 				}
 			}
-		}
+		}		
 		ProcessOutputParamaters processoutputparameters;
 		processoutputparameters = CalculateParameters(processList);
 

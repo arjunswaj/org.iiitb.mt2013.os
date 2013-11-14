@@ -16,137 +16,132 @@ import org.iiitb.view.consts.ViewConsts;
  * @author arjun
  * 
  */
-public class SegmentView extends JComponent
-{
+public class SegmentView extends JComponent {
 
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = 3361893591327175621L;
-	private long memorySize;
-	private List<MemorySegment> memorySegmentList;
-	Memory<MemorySegment> memory;
-	private double scalingFactor;
-	private long accessedAddress;
-	private boolean showAccess;
+  /**
+   * serialVersionUID
+   */
+  private static final long serialVersionUID = 3361893591327175621L;
+  private long memorySize;
+  private List<MemorySegment> memorySegmentList;
+  Memory<MemorySegment> memory;
+  private double scalingFactor;
+  private long accessedAddress;
+  private boolean showAccess;
 
-	public SegmentView(long memorySize, List<MemorySegment> memorySegmentList)
-	{
-		showAccess = false;
-		this.memorySize = memorySize;
-		this.memorySegmentList = memorySegmentList;
-		this.scalingFactor = ((double) this.memorySize)
-				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
-	}
+  public SegmentView(long memorySize, List<MemorySegment> memorySegmentList) {
+    showAccess = false;
+    this.memorySize = memorySize;
+    this.memorySegmentList = memorySegmentList;
+    this.scalingFactor = ((double) this.memorySize)
+        / (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+  }
 
-	public SegmentView(Memory<MemorySegment> memory)
-	{
-		showAccess = false;
-		this.memorySize = memory.getSize();
-		this.memory = memory;
-		this.scalingFactor = ((double) this.memorySize)
-				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
-	}
+  public SegmentView(Memory<MemorySegment> memory) {
+    showAccess = false;
+    this.memorySize = memory.getSize();
+    this.memory = memory;
+    this.scalingFactor = ((double) this.memorySize)
+        / (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+  }
 
-	public SegmentView(Memory<MemorySegment> memory, long accessedAddress)
-	{
-		showAccess = true;
-		this.accessedAddress = accessedAddress;
-		this.memorySize = memory.getSize();
-		this.memory = memory;
-		this.scalingFactor = ((double) this.memorySize)
-				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
-	}
+  public SegmentView(Memory<MemorySegment> memory, long accessedAddress) {
+    showAccess = true;
+    this.accessedAddress = accessedAddress;
+    this.memorySize = memory.getSize();
+    this.memory = memory;
+    this.scalingFactor = ((double) this.memorySize)
+        / (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+  }
 
-	public void paint(Graphics g)
-	{
-		int height = (int) ((double) memorySize / scalingFactor);
-		/*
-		 * System.out.println("memory size: " + memorySize + " scaling factor: "
-		 * + scalingFactor + " height: " + height);
-		 */
-		g.drawString("Visualisation of Memory Segmentation",
-				ViewConsts.SEGMENT_TITLE_X_MARGIN,
-				ViewConsts.SEGMENT_TITLE_Y_MARGIN);
+  public void paint(Graphics g) {
+    int height = (int) ((double) memorySize / scalingFactor);
+    /*
+     * System.out.println("memory size: " + memorySize + " scaling factor: " +
+     * scalingFactor + " height: " + height);
+     */
+    g.drawString("Visualisation of Memory Segmentation",
+        ViewConsts.SEGMENT_TITLE_X_MARGIN, ViewConsts.SEGMENT_TITLE_Y_MARGIN);
 
-		g.draw3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN,
-				ViewConsts.SEGMENT_VIEW_WIDTH, height
-						+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS, true);
+    g.draw3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN,
+        ViewConsts.SEGMENT_VIEW_Y_MARGIN, ViewConsts.SEGMENT_VIEW_WIDTH, height
+            + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS, true);
 
-		g.drawString(String.valueOf(0), ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN);
+    g.drawString(String.valueOf(0), ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
+        ViewConsts.SEGMENT_VIEW_Y_MARGIN);
 
-		g.drawString(String.valueOf(memorySize),
-				ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
-				ViewConsts.SEGMENT_VIEW_Y_MARGIN + height
-						+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+    g.drawString(String.valueOf(memorySize),
+        ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, ViewConsts.SEGMENT_VIEW_Y_MARGIN
+            + height + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 
-		boolean isLeft = false;
-		Iterable memoryList = memorySegmentList;
-		if (null == memorySegmentList)
-		{
-			memoryList = memory.getAll();
-		}
-		for (Object object : memoryList)
-		{
-			MemorySegment memorySegment = (MemorySegment) object;
-			height = (int) ((double) memorySegment.getSize() / scalingFactor);
-			int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
-					+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
-			/*
-			 * System.out.println("memory unit size: " + memorySegment.getSize()
-			 * + " scaling factor: " + scalingFactor + " height: " + height +
-			 * " memory start address: " + memorySegment.getAddress() +
-			 * " memory scaled address: " + yCoOrd);
-			 */
-			g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
-					ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
+    boolean isLeft = false;
+    Iterable memoryList = memorySegmentList;
+    if (null == memorySegmentList) {
+      memoryList = memory.getAll();
+    }
+    for (Object object : memoryList) {
+      MemorySegment memorySegment = (MemorySegment) object;
+      height = (int) ((double) memorySegment.getSize() / scalingFactor);
+      int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
+          + ViewConsts.SEGMENT_VIEW_Y_MARGIN;
+      /*
+       * System.out.println("memory unit size: " + memorySegment.getSize() +
+       * " scaling factor: " + scalingFactor + " height: " + height +
+       * " memory start address: " + memorySegment.getAddress() +
+       * " memory scaled address: " + yCoOrd);
+       */
+      g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
+          ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
+      g.setColor(new Color(0xFF, 0xFF, 0xFF));
+      g.draw3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
+          ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
 
-			// Highlight accessed address
-			if (showAccess)
-			{
-				int yAccessedAddress = (int) ((double) accessedAddress / scalingFactor)
-						+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
-				g.setColor(Color.yellow);
-				g.drawLine(ViewConsts.SEGMENT_VIEW_X_MARGIN, yAccessedAddress,
-						ViewConsts.SEGMENT_VIEW_X_MARGIN
-								+ ViewConsts.SEGMENT_VIEW_WIDTH,
-						yAccessedAddress);
-			}
+      // Highlight accessed address
+      if (showAccess) {
 
-			int xSegmentName = (ViewConsts.SEGMENT_VIEW_X_MARGIN + ViewConsts.SEGMENT_VIEW_WIDTH) / 3;
-			int ySegmentName = ((2 * yCoOrd) + height) / 2;
-			g.setColor(new Color(0xCC, 0xCC, 0xCC));
-			g.drawString("Number: " + memorySegment.getSegmentNumber()
-					+ ", Name: " + memorySegment.getSegmentName() + ", Size: "
-					+ memorySegment.getSize(), xSegmentName, ySegmentName
-					+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-			g.setColor(new Color(0x00, 0x00, 0x00));
+        int yAccessedAddress = (int) ((double) accessedAddress / scalingFactor)
+            + ViewConsts.SEGMENT_VIEW_Y_MARGIN;
+        g.setColor(Color.red);
 
-			if (isLeft)
-			{
-				g.drawString(String.valueOf(memorySegment.getAddress()),
-						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd
-								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-				g.drawString(
-						String.valueOf(memorySegment.getAddress()
-								+ memorySegment.getSize()),
-						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd + height
-								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-			}
-			else
-			{
-				g.drawString(String.valueOf(memorySegment.getAddress()),
-						ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd
-								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-				g.drawString(
-						String.valueOf(memorySegment.getAddress()
-								+ memorySegment.getSize()),
-						ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd + height
-								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-			}
-			isLeft = !isLeft;
-		}
-	}
+        g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yAccessedAddress,
+            ViewConsts.SEGMENT_HIGHLIGHT_WIDTH_CONSTANT,
+            ViewConsts.SEGMENT_HIGHLIGHT_HEIGHT_CONSTANT, true);
+
+        g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN
+            + ViewConsts.SEGMENT_VIEW_WIDTH
+            - ViewConsts.SEGMENT_HIGHLIGHT_WIDTH_CONSTANT, yAccessedAddress,
+            ViewConsts.SEGMENT_HIGHLIGHT_WIDTH_CONSTANT,
+            ViewConsts.SEGMENT_HIGHLIGHT_HEIGHT_CONSTANT, true);
+
+        g.drawLine(ViewConsts.SEGMENT_VIEW_X_MARGIN, yAccessedAddress,
+            ViewConsts.SEGMENT_VIEW_X_MARGIN + ViewConsts.SEGMENT_VIEW_WIDTH,
+            yAccessedAddress);
+      }
+
+      int xSegmentName = (ViewConsts.SEGMENT_VIEW_X_MARGIN + ViewConsts.SEGMENT_VIEW_WIDTH) / 3;
+      int ySegmentName = ((2 * yCoOrd) + height) / 2;
+      g.setColor(new Color(0xCC, 0xCC, 0xCC));
+      g.drawString(
+          memorySegment.getSegmentName() + ", Size: " + memorySegment.getSize(),
+          xSegmentName, ySegmentName + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+      g.setColor(new Color(0x00, 0x00, 0x00));
+
+      if (isLeft) {
+        g.drawString(String.valueOf(memorySegment.getAddress()),
+            ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd
+                + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+        g.drawString(String.valueOf(memorySegment.getAddress()
+            + memorySegment.getSize()), ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN,
+            yCoOrd + height + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+      } else {
+        g.drawString(String.valueOf(memorySegment.getAddress()),
+            ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd
+                + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+        g.drawString(String.valueOf(memorySegment.getAddress()
+            + memorySegment.getSize()), ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN,
+            yCoOrd + height + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+      }
+      isLeft = !isLeft;
+    }
+  }
 }
