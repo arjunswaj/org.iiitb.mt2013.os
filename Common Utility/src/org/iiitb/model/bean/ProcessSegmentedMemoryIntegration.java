@@ -33,25 +33,22 @@ public class ProcessSegmentedMemoryIntegration
 	{
 		SegmentedMemoryWrapper smw = new SegmentedMemoryWrapper(memorySize);
 
-		int processCount, count = 0, pId, arrivalTime;
 		List<ProcessBean> processList = new ArrayList<ProcessBean>();
 		List<TimeQuantum> burstList;
 		TimeQuantum timequant;
-		processCount = nProcesses;
 		Random r = new Random();
 
 		HashMap<Integer, Long[]> references = new HashMap<>();
-		for (count = 0; count < processCount; ++count)
+		for (int count = 0; count < nProcesses; ++count)
 		{
-			pId = smw.loadProcess(processSize);
+			int pId = smw.loadProcess(processSize);
 			references.put(new Integer(pId),
 					generateMemoryReferences(pId, smw, smw.getSegmentSizes(processSize)));
 			ProcessBean processbean = new ProcessBean(pId, "P" + pId);
 			processbean.setMemoryUnit(smw.getMemory());
 			processbean.setLogicalAddressSpacesize(processSize);
-			arrivalTime = r.nextInt() % 3;
 			@SuppressWarnings("deprecation")
-			Date date = new Date(2013, 10, 0, 0, arrivalTime);
+			Date date = new Date(2013, 10, 0, 0, r.nextInt() % nProcesses);
 			processbean.setArrivalTime(date);
 			timequant = new TimeQuantum();
 			timequant.setType(BurstType.CPU);

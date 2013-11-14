@@ -111,9 +111,6 @@ public class SegmentedMemoryWrapper
 
 	private long[] firstFitAllocationPolicy(long[] segmentArray)
 	{
-		// for (int i = 0; i < memorySize; i++) {
-
-		// }
 		long[] allocationAddress = new long[5];
 		try
 		{
