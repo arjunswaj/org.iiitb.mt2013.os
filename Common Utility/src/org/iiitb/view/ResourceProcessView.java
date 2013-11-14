@@ -149,7 +149,7 @@ public class ResourceProcessView extends JComponent{
 		for(int i=0; i< pResource.size();i++){
 			if(countResource.containsKey(pResource.get(i).getRid())){
 				//System.out.println("exists in hash");
-				int newCount = (int) countResource.get(pResource.get(i).getRid());
+				Integer newCount = (Integer) countResource.get(pResource.get(i).getRid());
 				//System.out.println(newCount);
 				countResource.put(pResource.get(i).getRid(),newCount++);
 			}
