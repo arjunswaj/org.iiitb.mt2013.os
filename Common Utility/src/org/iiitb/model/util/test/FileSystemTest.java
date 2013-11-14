@@ -1,6 +1,7 @@
 package org.iiitb.model.util.test;
 
 import org.iiitb.controller.util.FileSystemGrapher;
+import org.iiitb.model.bean.files.ContiguousFileUnit;
 import org.iiitb.model.bean.files.FileSystem;
 import org.iiitb.model.bean.files.FileUnit;
 import org.iiitb.model.bean.files.Files;
@@ -22,7 +23,8 @@ public class FileSystemTest {
 	 */
 	public static void main(String[] args) throws Exception {
 		//doIndexedFileSystemTest();
-		doLinkedFileSystemTest();
+		//doLinkedFileSystemTest();
+		doContiguousFileSystemTest();
 	}
 
 	private static void doIndexedFileSystemTest() throws Exception {
@@ -93,4 +95,37 @@ public class FileSystemTest {
 
 	}
 
+	private static void doContiguousFileSystemTest() throws Exception {
+    FileSystem fileSystem = new FileSystem(4096, 128,
+        FileAllocationType.CONTIGUOUS);
+
+    Files file1 = new Files(1);
+
+    for (int counter = 0; counter < 10; counter += 1) {
+      FileUnit fileUnit = new ContiguousFileUnit(counter);
+      file1.getFileUnits().add(fileUnit);
+    }
+
+    Files file2 = new Files(2);
+
+    for (int counter = 15; counter < 20; counter += 1) {
+      FileUnit fileUnit = new ContiguousFileUnit(counter);
+      file2.getFileUnits().add(fileUnit);
+    }
+
+    Files file3 = new Files(3);
+
+    for (int counter = 25; counter < 32; counter += 1) {
+      FileUnit fileUnit = new ContiguousFileUnit(counter);
+      file3.getFileUnits().add(fileUnit);
+    }
+
+    fileSystem.getFiles().add(file1);
+    fileSystem.getFiles().add(file2);
+    fileSystem.getFiles().add(file3);
+
+    FileSystemGrapher grapher = new FileSystemGrapher();
+    grapher.plotGraph(fileSystem);
+
+  }
 }

@@ -38,7 +38,7 @@ public class ProcessSegmentedMemoryIntegration
 		TimeQuantum timequant;
 		Random r = new Random();
 
-		HashMap<Integer, Long[]> references = new HashMap<>();
+		HashMap<Integer, Long[]> references = new HashMap<Integer, Long[]>();
 		for (int count = 0; count < nProcesses; ++count)
 		{
 			int pId = smw.loadProcess(processSize);
