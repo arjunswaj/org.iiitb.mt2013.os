@@ -109,12 +109,12 @@ public class ProcessMemoryVisualiser {
 	 *            memory Unit
 	 */
 	public void reDraw(List<ProcessBean> readyQueue,
-			ProcessBean currentProcess, List<ProcessBean> waitQueue) {
+			ProcessBean currentProcess, List<ProcessBean> waitQueue, long accessedAddress) {
 		window.getContentPane().removeAll();
 		Memory<MemorySegment> memoryUnit = currentProcess.getMemoryUnit();
 		this.memorySize = memoryUnit.getSize();
 
-		SegmentView segmentView = new SegmentView(memoryUnit);
+		SegmentView segmentView = new SegmentView(memoryUnit, accessedAddress);
 
 		ProcessSnapshotView snap = new ProcessSnapshotView(readyQueue,
 				currentProcess, waitQueue, 0);

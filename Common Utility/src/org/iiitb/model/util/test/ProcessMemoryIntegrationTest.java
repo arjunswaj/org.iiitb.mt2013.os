@@ -68,6 +68,7 @@ public class ProcessMemoryIntegrationTest {
 		waitingQueue.add(p1);
 
 		processMemoryVisualiser.plotGraph(readyQueue, p4, waitingQueue);
+		processMemoryVisualiser.reDraw(readyQueue, p4, waitingQueue, 50);
 	}
 
 }

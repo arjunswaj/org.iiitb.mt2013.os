@@ -8,7 +8,6 @@ import java.util.List;
 import org.iiitb.controller.util.ProcessMemoryVisualiser;
 import org.iiitb.model.bean.Memory;
 import org.iiitb.model.bean.ProcessBean;
-import org.iiitb.model.bean.SegmentedMemoryReference;
 import org.iiitb.model.bean.processScheduling.model.OutputProcessBean;
 import org.iiitb.model.bean.processScheduling.model.ProcessOutputParamaters;
 import org.iiitb.model.bean.processScheduling.controller.ArrivalTimeComparator;
@@ -29,7 +28,7 @@ public class FCFS implements IScheduler
 	}
 
 	public ProcessOutputParamaters Schedule(List<ProcessBean> processList,
-			HashMap<Integer, List<SegmentedMemoryReference>> references)
+			HashMap<Integer, Long[]> references)
 	{
 		ProcessMemoryVisualiser processMemoryVisualiser = new ProcessMemoryVisualiser();
 
@@ -50,13 +49,11 @@ public class FCFS implements IScheduler
 		{
 			current = readylist.get(0);
 			readylist.remove(0);
-			List<SegmentedMemoryReference> referencesOfCurrentProcess = references
-					.get(current.getPid());
-			processMemoryVisualiser.reDraw(readylist, current, null);
-			for (SegmentedMemoryReference sr : referencesOfCurrentProcess)
+
+			Long[] address = references.get(current.getPid());
+			for (int i = 0; i < address.length; i++)
 			{
-				// To do : Arjun
-				processMemoryVisualiser.reDraw(readylist, current, null);
+				processMemoryVisualiser.reDraw(readylist, current, null, address[i]);
 				try
 				{
 					Thread.sleep(1000);

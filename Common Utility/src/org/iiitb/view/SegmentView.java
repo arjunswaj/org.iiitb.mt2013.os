@@ -16,7 +16,8 @@ import org.iiitb.view.consts.ViewConsts;
  * @author arjun
  * 
  */
-public class SegmentView extends JComponent {
+public class SegmentView extends JComponent
+{
 
 	/**
 	 * serialVersionUID
@@ -24,24 +25,41 @@ public class SegmentView extends JComponent {
 	private static final long serialVersionUID = 3361893591327175621L;
 	private long memorySize;
 	private List<MemorySegment> memorySegmentList;
-	Memory<MemorySegment> memoryUnit;
+	Memory<MemorySegment> memory;
 	private double scalingFactor;
+	private long accessedAddress;
+	private boolean showAccess;
 
-	public SegmentView(long memorySize, List<MemorySegment> memorySegmentList) {
+	public SegmentView(long memorySize, List<MemorySegment> memorySegmentList)
+	{
+		showAccess = false;
 		this.memorySize = memorySize;
 		this.memorySegmentList = memorySegmentList;
 		this.scalingFactor = ((double) this.memorySize)
 				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
 	}
 
-	public SegmentView(Memory<MemorySegment> memoryUnit) {
-		this.memorySize = memoryUnit.getSize();
-		this.memoryUnit = memoryUnit;
+	public SegmentView(Memory<MemorySegment> memory)
+	{
+		showAccess = false;
+		this.memorySize = memory.getSize();
+		this.memory = memory;
 		this.scalingFactor = ((double) this.memorySize)
 				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
 	}
 
-	public void paint(Graphics g) {
+	public SegmentView(Memory<MemorySegment> memory, long accessedAddress)
+	{
+		showAccess = true;
+		this.accessedAddress = accessedAddress;
+		this.memorySize = memory.getSize();
+		this.memory = memory;
+		this.scalingFactor = ((double) this.memorySize)
+				/ (ViewConsts.SEGMENT_WINDOW_HEIGHT - 100);
+	}
+
+	public void paint(Graphics g)
+	{
 		int height = (int) ((double) memorySize / scalingFactor);
 		/*
 		 * System.out.println("memory size: " + memorySize + " scaling factor: "
@@ -66,10 +84,12 @@ public class SegmentView extends JComponent {
 
 		boolean isLeft = false;
 		Iterable memoryList = memorySegmentList;
-		if (null == memorySegmentList) {
-			memoryList = memoryUnit.getAll();
+		if (null == memorySegmentList)
+		{
+			memoryList = memory.getAll();
 		}
-		for (Object object : memoryList) {
+		for (Object object : memoryList)
+		{
 			MemorySegment memorySegment = (MemorySegment) object;
 			height = (int) ((double) memorySegment.getSize() / scalingFactor);
 			int yCoOrd = (int) ((double) memorySegment.getAddress() / scalingFactor)
@@ -83,6 +103,18 @@ public class SegmentView extends JComponent {
 			g.fill3DRect(ViewConsts.SEGMENT_VIEW_X_MARGIN, yCoOrd,
 					ViewConsts.SEGMENT_VIEW_WIDTH, height, true);
 
+			// Highlight accessed address
+			if (showAccess)
+			{
+				int yAccessedAddress = (int) ((double) accessedAddress / scalingFactor)
+						+ ViewConsts.SEGMENT_VIEW_Y_MARGIN;
+				g.setColor(Color.yellow);
+				g.drawLine(ViewConsts.SEGMENT_VIEW_X_MARGIN, yAccessedAddress,
+						ViewConsts.SEGMENT_VIEW_X_MARGIN
+								+ ViewConsts.SEGMENT_VIEW_WIDTH,
+						yAccessedAddress);
+			}
+
 			int xSegmentName = (ViewConsts.SEGMENT_VIEW_X_MARGIN + ViewConsts.SEGMENT_VIEW_WIDTH) / 3;
 			int ySegmentName = ((2 * yCoOrd) + height) / 2;
 			g.setColor(new Color(0xCC, 0xCC, 0xCC));
@@ -92,7 +124,8 @@ public class SegmentView extends JComponent {
 					+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 			g.setColor(new Color(0x00, 0x00, 0x00));
 
-			if (isLeft) {
+			if (isLeft)
+			{
 				g.drawString(String.valueOf(memorySegment.getAddress()),
 						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
@@ -101,7 +134,9 @@ public class SegmentView extends JComponent {
 								+ memorySegment.getSize()),
 						ViewConsts.SEGMENT_TEXT_LEFT_X_MARGIN, yCoOrd + height
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
-			} else {
+			}
+			else
+			{
 				g.drawString(String.valueOf(memorySegment.getAddress()),
 						ViewConsts.SEGMENT_TEXT_RIGHT_X_MARGIN, yCoOrd
 								+ ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);

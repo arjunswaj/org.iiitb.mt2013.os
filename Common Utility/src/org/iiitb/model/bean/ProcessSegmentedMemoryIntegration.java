@@ -1,17 +1,14 @@
 package org.iiitb.model.bean;
-/**
- * 
- */
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import org.iiitb.model.bean.processScheduling.controller.FCFS;
+import org.iiitb.model.bean.segmentation.SegmentTableEntry;
 import org.iiitb.model.bean.segmentation.SegmentedMemoryWrapper;
 import org.iiitb.model.consts.BurstType;
 
@@ -21,48 +18,43 @@ import org.iiitb.model.consts.BurstType;
  */
 public class ProcessSegmentedMemoryIntegration
 {
-	
+
 	final static int nSegments = 5;
 	final static int nReferences = 5;
-	
+	final static int nProcesses = 3;
+	final static int burstTime = 5;
+	final static int processSize = 20;
+	final static int memorySize = 6; // in terms of powers of two
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		SegmentedMemoryWrapper smw = new SegmentedMemoryWrapper(6);
+		SegmentedMemoryWrapper smw = new SegmentedMemoryWrapper(memorySize);
 
-		int processCount, count = 0, pId, arrivalTime, burstTime;
+		int processCount, count = 0, pId, arrivalTime;
 		List<ProcessBean> processList = new ArrayList<ProcessBean>();
 		List<TimeQuantum> burstList;
 		TimeQuantum timequant;
-		System.out.println("Please enter number of process");
-		Scanner inputReader = new Scanner(System.in);
+		processCount = nProcesses;
+		Random r = new Random();
 
-		// Getting input in integer format
-		processCount = inputReader.nextInt();
-
-		HashMap<Integer, List<SegmentedMemoryReference>> references = new HashMap<>(); 
+		HashMap<Integer, Long[]> references = new HashMap<>();
 		for (count = 0; count < processCount; ++count)
 		{
-			int size = 10;
-			pId = smw.loadProcess(size);
-			references.put(pId, generateMemoryReferences(smw.getSegmentSizes(size)));
+			pId = smw.loadProcess(processSize);
+			references.put(new Integer(pId),
+					generateMemoryReferences(pId, smw, smw.getSegmentSizes(processSize)));
 			ProcessBean processbean = new ProcessBean(pId, "P" + pId);
 			processbean.setMemoryUnit(smw.getMemory());
-			processbean.setLogicalAddressSpacesize(size);
-
-			
-			System.out.println("Please arrival time for the process");
-			arrivalTime = inputReader.nextInt();
+			processbean.setLogicalAddressSpacesize(processSize);
+			arrivalTime = r.nextInt() % 3;
 			@SuppressWarnings("deprecation")
 			Date date = new Date(2013, 10, 0, 0, arrivalTime);
 			processbean.setArrivalTime(date);
-			System.out.println("Please burst time for the process");
 			timequant = new TimeQuantum();
 			timequant.setType(BurstType.CPU);
-			burstTime = inputReader.nextInt();
 			timequant.setQuantum(burstTime);
 			burstList = new ArrayList<TimeQuantum>();
 			burstList.add(timequant);
@@ -70,24 +62,30 @@ public class ProcessSegmentedMemoryIntegration
 			processList.add(processbean);
 		}
 		new FCFS().Schedule(processList, references);
-
-		inputReader.close();
-		// SegmentationGrapher segmentationGrapherUsingMemory = new
-		// SegmentationGrapher(
-		// 1, "Segment", true, 10, ResourceType.MEMORY);
-		// segmentationGrapherUsingMemory.plotGraph(smw.getMemory());
 	}
 
-	public static List<SegmentedMemoryReference> generateMemoryReferences(long segmentSize[])
+	/**
+	 * Generates and returns 5 physical address of process pId to mimic execution of a process
+	 * 
+	 * @param segmentSize
+	 * @return
+	 */
+	public static Long[] generateMemoryReferences(int pId,
+			SegmentedMemoryWrapper smw, long segmentSize[])
 	{
-		List<SegmentedMemoryReference> references = new LinkedList<SegmentedMemoryReference>();
+		Long physicalAddress[] = new Long[nReferences];
+		HashMap<Integer, SegmentTableEntry> segmentTable = smw
+				.getSegmentTable(pId);
+		
 		Random r = new Random();
 		for (int i = 0; i < nReferences; i++)
 		{
-			int sid; 
-			while ((sid = r.nextInt() % nSegments) != 0);
-			references.add(new SegmentedMemoryReference(i, r.nextLong() % segmentSize[sid]));
+			int sid;
+			while ((sid = Math.abs(r.nextInt()) % nSegments) == 0)
+				;
+			physicalAddress[i] = segmentTable.get(sid).getbAddress() + Math.abs(r.nextLong())
+					% segmentSize[sid];
 		}
-		return references;
+		return physicalAddress;
 	}
 }
