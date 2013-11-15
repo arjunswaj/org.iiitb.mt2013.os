@@ -49,7 +49,7 @@ public class FCFS implements IScheduler
 		while (readylist.size() > 0)
 		{
 			current = readylist.get(0);
-			finishQueue.add(readylist.remove(0));
+			ProcessBean finished = readylist.remove(0);			
 
 			Long[] address = references.get(current.getPid());
 			for (int i = 0; i < address.length; i++)
@@ -63,8 +63,9 @@ public class FCFS implements IScheduler
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}				
 			}
+			finishQueue.add(finished);
 		}		
 		ProcessOutputParamaters processoutputparameters;
 		processoutputparameters = CalculateParameters(processList);
