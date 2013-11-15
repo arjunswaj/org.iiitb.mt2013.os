@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.iiitb.model.bean.ProcessBean;
+import org.iiitb.view.Legend;
 import org.iiitb.view.ProcessSnapshotView;
 import org.iiitb.view.ResourceSnapshotView;
 import org.iiitb.view.consts.ProcViewConsts;
@@ -91,14 +92,35 @@ public class SnapshotRenderer {
 	
 		setContent(state);
 		c.gridx=0;
-		c.gridy=2;
+		c.gridy=3;
 		c.weightx=0.2;
 		c.weighty=0.2;
 		c.anchor = GridBagConstraints.CENTER;
-		c.fill = GridBagConstraints.BOTH;
+		c.gridwidth = 1;
+		//c.fill = GridBagConstraints.VERTICAL;
 		//text.setBounds(0, 0, 500, 500);
 		//window.setLayout(new BoxLayout());
 		panel.add(text,c);
+		
+		
+		 Color[] col= {Color.BLUE,Color.GREEN,Color.RED}; 
+		 String[] vals = {"NEXT PROCESS","CURRENT PROCESS","LAST BLOCKED"};
+		// System.out.println("I"+vals[0]);
+		Legend l =new Legend(3,vals,col);
+		
+		
+		
+		c.gridx=0;
+		c.gridy=2;
+		c.gridheight=1;
+	
+		c.weightx=0.005;
+		c.weighty=0.05;
+	
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.WEST;
+		c.insets = new Insets(0,10,0,0);
+		panel.add(l.getLegend(),c);
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ProcViewConsts.WINDOW_X,ProcViewConsts.WINDOW_Y,
