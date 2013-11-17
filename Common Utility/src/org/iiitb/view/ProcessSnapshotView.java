@@ -93,7 +93,8 @@ public class ProcessSnapshotView extends JComponent{
 		g.drawString("BLOCKED / WAITING", ProcViewConsts.BLOCKED_LABEL_X,ProcViewConsts.BLOCKED_LABEL_Y);
 		Object[] list = ready.getArray();
 		for(int i =0 ; i<ready.getsize(); i++){
-			
+			if(i == 0)
+				g.setColor(Color.BLUE);
 			int offset = i*50;
 			g.fill3DRect(ProcViewConsts.READY_X, ProcViewConsts.READY_Y+offset, 
 					ProcViewConsts.READY_BLOCK_WIDTH,
@@ -114,9 +115,17 @@ public class ProcessSnapshotView extends JComponent{
 		if(blocked != null){
 			for(int i =0 ; i<blocked.size(); i++){
 				int offset = i*50;
+				if(blocked.size() -1 ==i){
+					g.setColor(Color.RED);
+					g.fill3DRect(ProcViewConsts.BLOCKED_X, ProcViewConsts.BLOCKED_Y+offset, 
+							ProcViewConsts.BLOCKED_BLOCK_WIDTH,
+							ProcViewConsts.BLOCKED_BLOCK_HEIGHT, true);
+				}
+				
 				g.draw3DRect(ProcViewConsts.BLOCKED_X, ProcViewConsts.BLOCKED_Y+offset, 
 						ProcViewConsts.BLOCKED_BLOCK_WIDTH,
 						ProcViewConsts.BLOCKED_BLOCK_HEIGHT, true);
+				g.setColor(Color.BLACK);
 				g.drawString(blocked.get(i).getpName(),ProcViewConsts.BLOCKED_X+25 ,ProcViewConsts.BLOCKED_Y+offset+25);
 				
 			}

@@ -35,4 +35,31 @@ public class ReadyQueue {
 	public int getsize(){
 		return ready.size();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ready == null) ? 0 : ready.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ReadyQueue other = (ReadyQueue) obj;
+		if (ready == null) {
+			if (other.ready != null)
+				return false;
+		} else if (!ready.equals(other.ready))
+			return false;
+		return true;
+	}
+	
+	
 }

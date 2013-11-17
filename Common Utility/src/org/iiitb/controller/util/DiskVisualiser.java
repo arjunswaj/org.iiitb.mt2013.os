@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.iiitb.view.DiskSnapshot;
+import org.iiitb.view.Legend;
 
 import org.iiitb.view.consts.DiskViewConsts;
 
@@ -83,6 +84,20 @@ public void plot(DiskSnapshot snapshot){
 		//text.setBounds(0, 0, 500, 500);
 		//window.setLayout(new BoxLayout());
 		panel.add(text,c);
+		
+		 Color[] col= {Color.RED,Color.WHITE,Color.GRAY}; 
+		 String[] vals = {"IN-USE ","FREE","FREE"};
+		// System.out.println("I"+vals[0]);
+		Legend l =new Legend(3,vals,col);
+			
+		
+		c.gridx=1;
+		c.gridy=0;
+		c.weightx=0.05;
+		c.weighty=0.05;
+		c.anchor = GridBagConstraints.ABOVE_BASELINE_LEADING;
+		c.fill = GridBagConstraints.CENTER;
+		panel.add(l.getLegend(),c);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(DiskViewConsts.WINDOW_X,DiskViewConsts.WINDOW_Y,
 				DiskViewConsts.WINDOW_WIDTH,DiskViewConsts.WINDOW_HEIGHT);

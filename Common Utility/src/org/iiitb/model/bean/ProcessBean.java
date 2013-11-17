@@ -149,4 +149,34 @@ public class ProcessBean {
 		this.logicalAddressSpacesize = logicalAddressSpacesize;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((pName == null) ? 0 : pName.hashCode());
+		result = prime * result + pid;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProcessBean other = (ProcessBean) obj;
+		if (pName == null) {
+			if (other.pName != null)
+				return false;
+		} else if (!pName.equals(other.pName))
+			return false;
+		if (pid != other.pid)
+			return false;
+		return true;
+	}
+	
+	
+
 }
