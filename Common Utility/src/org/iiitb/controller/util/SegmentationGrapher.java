@@ -110,7 +110,7 @@ public class SegmentationGrapher {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
-				ViewConsts.SEGMENT_WINDOW_WIDTH,
+				ViewConsts.SEGMENT_WINDOW_WIDTH + 150,
 				ViewConsts.SEGMENT_WINDOW_HEIGHT);
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);
@@ -129,7 +129,7 @@ public class SegmentationGrapher {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ViewConsts.SEGMENT_WINDOW_X_OFFSET,
 				ViewConsts.SEGMENT_WINDOW_Y_OFFSET,
-				ViewConsts.SEGMENT_WINDOW_WIDTH,
+				ViewConsts.SEGMENT_WINDOW_WIDTH + 150,
 				ViewConsts.SEGMENT_WINDOW_HEIGHT);
 		window.getContentPane().add(segmentView);
 		window.setVisible(true);

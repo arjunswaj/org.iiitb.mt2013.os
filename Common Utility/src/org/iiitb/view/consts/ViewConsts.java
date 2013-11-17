@@ -25,7 +25,7 @@ public class ViewConsts {
   public static final int SEGMENT_VIEW_WIDTH = SEGMENT_WINDOW_WIDTH - 200;
   public static final int SEGMENT_VIEW_HEIGHT = SEGMENT_WINDOW_HEIGHT - 200;
 
-  public static final int SEGMENT_TEXT_LEFT_X_MARGIN = SEGMENT_VIEW_WIDTH - 200;
+  public static final int SEGMENT_TEXT_LEFT_X_MARGIN = SEGMENT_VIEW_WIDTH - 225;
   public static final int SEGMENT_TEXT_RIGHT_X_MARGIN = SEGMENT_WINDOW_WIDTH - 40;
   
   public static final int SEGMENT_HIGHLIGHT_WIDTH_CONSTANT = 20;

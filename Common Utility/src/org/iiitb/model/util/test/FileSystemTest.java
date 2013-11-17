@@ -22,9 +22,9 @@ public class FileSystemTest {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		//doIndexedFileSystemTest();
+		doIndexedFileSystemTest();
 		//doLinkedFileSystemTest();
-		doContiguousFileSystemTest();
+		//doContiguousFileSystemTest();
 	}
 
 	private static void doIndexedFileSystemTest() throws Exception {
