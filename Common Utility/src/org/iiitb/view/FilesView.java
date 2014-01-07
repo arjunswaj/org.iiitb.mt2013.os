@@ -8,7 +8,6 @@ import javax.swing.JComponent;
 import org.iiitb.model.bean.files.FileSystem;
 import org.iiitb.model.bean.files.FileUnit;
 import org.iiitb.model.bean.files.Files;
-import org.iiitb.model.bean.files.IndexedFileUnit;
 import org.iiitb.model.bean.files.LinkedFileUnit;
 import org.iiitb.view.consts.ViewConsts;
 
@@ -103,14 +102,13 @@ public class FilesView extends JComponent {
         ViewConsts.FILE_SYSTEM_VIEW_Y_MARGIN + height
             + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
 
-    Iterable fileList = fileSystem.getFiles();
+    Iterable<Files> fileList = fileSystem.getFiles();
 
     height = (int) ((double) fileSystem.getFileUnitSize() / scalingFactor);
 
     int clr = 0x00;
     int widthOfLine = 0;
-    for (Object object : fileList) {
-      Files files = (Files) object;
+    for (Files files : fileList) {     
 
       int prevYCoOrd = 0;
       for (FileUnit fileUnit : files.getFileUnits()) {

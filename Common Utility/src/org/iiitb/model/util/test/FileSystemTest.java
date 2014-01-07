@@ -23,7 +23,7 @@ public class FileSystemTest {
 	 */
 	public static void main(String[] args) throws Exception {
 		//doIndexedFileSystemTest();
-		//doLinkedFileSystemTest();
+		doLinkedFileSystemTest();
 		doContiguousFileSystemTest();
 	}
 
