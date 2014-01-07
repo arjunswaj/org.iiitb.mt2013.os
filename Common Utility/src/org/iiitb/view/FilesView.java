@@ -108,9 +108,11 @@ public class FilesView extends JComponent {
     height = (int) ((double) fileSystem.getFileUnitSize() / scalingFactor);
 
     int clr = 0x00;
+    int widthOfLine = 0;
     for (Object object : fileList) {
       Files files = (Files) object;
 
+      int prevYCoOrd = 0;
       for (FileUnit fileUnit : files.getFileUnits()) {
 
         int yCoOrd = (int) ((double) (fileUnit.getIndex() * fileSystem
@@ -137,6 +139,21 @@ public class FilesView extends JComponent {
             String.valueOf(fileUnit.getIndex() * fileSystem.getFileUnitSize()),
             ViewConsts.FILE_SYSTEM_TEXT_LEFT_X_MARGIN, yCoOrd
                 + ViewConsts.VERTICAL_TEXT_ADJUSTMENTS);
+        
+        if (0 != prevYCoOrd) {
+          widthOfLine += 10;
+          int xCoOrd = ViewConsts.FILE_SYSTEM_VIEW_X_MARGIN + ViewConsts.FILE_SYSTEM_VIEW_WIDTH;
+          int lineYCoOrd = yCoOrd + (height / 3);
+          int prevLineYCoOrd = prevYCoOrd + ((2 * height) / 3);       
+          
+          g.drawLine(xCoOrd, prevLineYCoOrd, xCoOrd + widthOfLine, prevLineYCoOrd);
+          g.drawLine(xCoOrd + widthOfLine, lineYCoOrd, xCoOrd + widthOfLine, prevLineYCoOrd);
+          g.drawLine(xCoOrd, lineYCoOrd, xCoOrd + widthOfLine, lineYCoOrd);          
+                    
+          g.drawLine(xCoOrd, lineYCoOrd, xCoOrd + 5, lineYCoOrd + (height / 3));
+          g.drawLine(xCoOrd, lineYCoOrd, xCoOrd + 5, lineYCoOrd - (height / 3));
+        }
+        prevYCoOrd = yCoOrd;
       }
       clr += 0x30;
       clr %= 0xFF;

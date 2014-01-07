@@ -22,9 +22,9 @@ public class FileSystemTest {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		doIndexedFileSystemTest();
+		//doIndexedFileSystemTest();
 		//doLinkedFileSystemTest();
-		//doContiguousFileSystemTest();
+		doContiguousFileSystemTest();
 	}
 
 	private static void doIndexedFileSystemTest() throws Exception {
@@ -101,21 +101,21 @@ public class FileSystemTest {
 
     Files file1 = new Files(1);
 
-    for (int counter = 0; counter < 10; counter += 1) {
+    for (int counter = 0; counter < 9; counter += 1) {
       FileUnit fileUnit = new ContiguousFileUnit(counter);
       file1.getFileUnits().add(fileUnit);
     }
 
     Files file2 = new Files(2);
 
-    for (int counter = 15; counter < 20; counter += 1) {
+    for (int counter = 15; counter < 18; counter += 1) {
       FileUnit fileUnit = new ContiguousFileUnit(counter);
       file2.getFileUnits().add(fileUnit);
     }
 
     Files file3 = new Files(3);
 
-    for (int counter = 25; counter < 32; counter += 1) {
+    for (int counter = 25; counter < 30; counter += 1) {
       FileUnit fileUnit = new ContiguousFileUnit(counter);
       file3.getFileUnits().add(fileUnit);
     }
