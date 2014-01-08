@@ -164,18 +164,18 @@ public class ResourceProcessView extends JComponent{
 		if(temp.isEmpty()){
 			g.setFont(new Font("default", Font.BOLD, 22));
 			g.drawString("No resources allocated", ResourceViewConsts.RESOURCE_X
-					 + 350, ResourceViewConsts.RESOURCE_X + 25 + 50 + 300);
+					 + 330, ResourceViewConsts.RESOURCE_X + 25 + 50 + 230);
 		}else{
 		for (int i = 0; i < temp.size(); i++) {
 			
 			for (int j = 0; j < temp.size(); j++) {
 				
 				int offset = i * ResourceViewConsts.OFFSET_CONST;
-				g.setColor(new Color(0, 200, 100));
+				g.setColor(Color.BLUE);
 				g.fill3DRect(ResourceViewConsts.RESOURCE_X + offset,
 						ResourceViewConsts.RESOURCE_Y+300,
 						ResourceViewConsts.RESOURCE_WIDTH,
-						ResourceViewConsts.RESOURCE_HEIGHT, true);
+						40, true);
 				g.setColor(Color.BLACK);
 				g.setFont(new Font("default", Font.BOLD, 16));
 				g.drawString(pResource.get(i).getResourceName(),

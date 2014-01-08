@@ -28,7 +28,7 @@ public class ResourceSnapshotView extends JComponent {
 	private static final long serialVersionUID = 2613688163985731142L;
 	List<Resource> resource;
 	List<ProcessBean> process;
-	JTextArea actionText;
+	//JTextArea actionText;
 	ResourceAllocation ra = new ResourceAllocation();
 	boolean flag = false;
 

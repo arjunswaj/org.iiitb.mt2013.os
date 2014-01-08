@@ -133,14 +133,14 @@ public class ResourceAllocationTest {
 		allocate.issueInstance(p1, rB);
 		snap = new ResourceSnapshotView(rList, pList);
 		render.plotResource(snap, "One instance of " + rB.getResourceName()
-				+ " is allocated to p1.1111");
+				+ " is allocated to p1");
 		
 		Thread.sleep(1000);
 		// Allocate single instance of resource 234 to p1
 		allocate.issueInstance(p1, rB);
 		snap = new ResourceSnapshotView(rList, pList);
 		render.plotResource(snap, "One instance of " + rB.getResourceName()
-				+ " is allocated to p1.222");
+				+ " is allocated to p1");
 
 	}
 

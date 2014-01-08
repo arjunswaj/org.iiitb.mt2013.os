@@ -16,11 +16,14 @@ import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import org.iiitb.model.bean.ProcessBean;
 import org.iiitb.model.bean.Resource;
 import org.iiitb.model.bean.ResourceAllocation;
+import org.iiitb.view.Legend;
 import org.iiitb.view.ResourceSnapshotView;
 import org.iiitb.view.consts.ResourceViewConsts;
 
@@ -30,9 +33,26 @@ public class ResourceGraphVisualiser {
 	JFrame window = new JFrame();
 	
 	JPanel panel;
-	JTextArea actionText;
+	static JTextArea actionText = new JTextArea(ResourceViewConsts.TEXT_ROWS,
+			ResourceViewConsts.TEXT_COLUMNS);
 	GridBagLayout gb;
 	GridBagConstraints gbc;
+	
+	public static JTextArea getText() {
+		return actionText;
+	}
+
+	public static void setText(JTextArea actionText) {
+		ResourceGraphVisualiser.actionText = actionText;
+	}
+	
+	public static void setContent(String s){
+		StringBuilder str = new StringBuilder(actionText.getText());
+		str.append(s+"\n");
+		//text.setFont(new Font(str.toString(), 5, 18));
+		actionText.setText(str.toString());
+	}
+
 	
 	public void plotResource(ResourceSnapshotView snapshot){
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,15 +73,6 @@ public class ResourceGraphVisualiser {
 		gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 
-		actionText = new JTextArea(ResourceViewConsts.TEXT_ROWS,
-				ResourceViewConsts.TEXT_COLUMNS);
-		actionText.setBackground(new Color(0, 20, 20));
-		actionText.setForeground(new Color(255, 255, 255));
-		actionText.setFont(new Font(action, 5, 18));
-		actionText.setMargin(new Insets(0, 250, 0, 20));
-		actionText.setText(action);
-		actionText.setEditable(false);
-
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ResourceViewConsts.WINDOW_X,
 				ResourceViewConsts.WINDOW_Y, ResourceViewConsts.WINDOW_WIDTH,
@@ -76,21 +87,42 @@ public class ResourceGraphVisualiser {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		panel.add(snapshot, gbc);
+		
+		Color[] col= {Color.BLUE,Color.GREEN,Color.RED}; 
+		String[] vals = {"PROCESSES PRESENT","AVAILABLE RESOURCES","UNAVAILABLE RESOURCES"};
+		Legend legendObj =new Legend(3,vals,col);		
+		gbc.gridx=0;
+		gbc.gridy=1;
+		gbc.gridheight=1;
+		gbc.weightx=0.005;
+		gbc.weighty=0.05;	
+		gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.fill = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0,10,0,0);
+		panel.add(legendObj.getLegend(),gbc);
 
 		gbc = new GridBagConstraints();
+		actionText.setBackground(new Color(0, 20, 20));
+		actionText.setForeground(new Color(255, 255, 255));
+		actionText.setFont(new Font(action, 5, 18));
+		actionText.setMargin(new Insets(0, 250, 0, 20));
+		setContent(action);
+		actionText.setEditable(false);
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.anchor = GridBagConstraints.SOUTH;
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		gbc.ipadx = 100;
 		gbc.ipady = 100;
 		gbc.weightx = 0.0;
 		gbc.weighty = 0.0;
 		
-
-		panel.add(actionText, gbc);
+		JScrollPane scroll = new JScrollPane(actionText);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scroll, gbc);
+		
+		
 		window.getContentPane().add(panel);
-
 		window.setVisible(true);
 	}
 		
