@@ -49,7 +49,7 @@ public class ProcessResourceVisualizer {
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(ResourceViewConsts.WINDOW_X,
-				ResourceViewConsts.WINDOW_Y, ResourceViewConsts.WINDOW_WIDTH,
+				ResourceViewConsts.WINDOW_Y, ResourceViewConsts.WINDOW_WIDTH+200,
 				ResourceViewConsts.WINDOW_HEIGHT);
 		window.getContentPane().removeAll();
 		
@@ -70,10 +70,10 @@ public class ProcessResourceVisualizer {
 		gbc.anchor = GridBagConstraints.CENTER;
 		panel.add(snap, gbc);
 		
-		Color[] col= {Color.BLUE,Color.GREEN,Color.RED,Color.RED,Color.RED}; 
-		String[] vals = {"RESOURCES ALLOCATED","CURRENT PROCESS","UNAVAILABLE RESOURCES","UNAVAILABLE RESOURCES","UNAVAILABLE RESOURCES"};
+		Color[] col= {Color.BLUE,Color.GREEN,Color.DARK_GRAY,Color.BLACK,null}; 
+		String[] vals = {"RESOURCES ALLOCATED","CURRENT PROCESS","NEXT PROCESS","READY PROCESS","BLOCKED/READY PROCESS"};
 		Legend legendObj =new Legend(5,vals,col);		
-		gbc.gridx=0;
+		gbc.gridx=2;
 		gbc.gridy=2;
 		gbc.gridheight=1;
 		gbc.weightx=0.005;
@@ -87,7 +87,7 @@ public class ProcessResourceVisualizer {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.anchor = GridBagConstraints.SOUTH;
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 2;
 		gbc.ipadx = 100;
 		gbc.ipady = 100;
 		gbc.weightx = 0.0;

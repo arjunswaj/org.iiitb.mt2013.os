@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.TextArea;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -63,7 +64,7 @@ public class ResourceSnapshotView extends JComponent {
 	}
 
 	public void paint(Graphics g) {
-
+		
 		if(flag){
 			g.setColor(new Color(0, 0, 100));
 			g.setFont(new Font("Arial", Font.BOLD, 20));
@@ -99,7 +100,7 @@ public class ResourceSnapshotView extends JComponent {
 		/*
 		 * Draw resources
 		 */
-		g.setColor(new Color(0, 0, 100));
+		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.drawString("Resource Allocation Graph",
 				ResourceViewConsts.SEGMENT_TITLE_X_MARGIN,
@@ -110,7 +111,7 @@ public class ResourceSnapshotView extends JComponent {
 			int offset = i * ResourceViewConsts.OFFSET_CONST;
 			if (((Resource) list[i]).isAvailability()
 					&& ((Resource) list[i]).getNumOfInstance() > 0) {
-				g.setColor(new Color(0, 200, 100));
+				g.setColor(Color.GRAY);
 			} else {
 				g.setColor(new Color(255, 0, 50));
 			}
@@ -137,7 +138,7 @@ public class ResourceSnapshotView extends JComponent {
 			int offset = i * ResourceViewConsts.OFFSET_CONST;
 			//System.out.println("111" + ra.getInstanceAvailable());
 			if (ra.getInstanceAvailable()) {
-				g.setColor(new Color(100, 100, 255));
+				g.setColor(Color.BLUE);
 
 			} else {
 				g.setColor(new Color(255, 0, 50));
@@ -159,11 +160,52 @@ public class ResourceSnapshotView extends JComponent {
 		 */
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(3));
-		g.setColor(new Color(200, 0, 0));
+		g2.setStroke(new BasicStroke(2));
+		//g.setColor(new Color(0, 0, 0));
+		
 		for (int i = 0; i < plist.length; i++) {
+			g.setColor(new Color(0, 0,0));
+			List<Resource> requestRList = ((ProcessBean) plist[i])
+					.getResourceRequest();
 
-			List<Resource> allocatedRList = ((ProcessBean) plist[i])
+			for (int j = 0; j < requestRList.size(); j++) {
+
+				for (int k = 0; k < list.length; k++) {
+
+					if (requestRList.get(j).getRid() == ((Resource) list[k])
+							.getRid()) {
+
+						int rOffset = k * ResourceViewConsts.OFFSET_CONST+50;
+						int pOffset = i * ResourceViewConsts.OFFSET_CONST+50;
+						
+						g.drawLine(
+								ResourceViewConsts.RESOURCE_X
+										+ rOffset
+										+ (ResourceViewConsts.RESOURCE_WIDTH / 3),
+								ResourceViewConsts.RESOURCE_Y
+										+ ResourceViewConsts.RESOURCE_HEIGHT,
+								ResourceViewConsts.PROCESS_X
+										+ pOffset
+										+ (ResourceViewConsts.RESOURCE_WIDTH / 3),
+								ResourceViewConsts.PROCESS_Y);
+						
+						g.fillArc(ResourceViewConsts.RESOURCE_X
+								+ rOffset
+								+ (ResourceViewConsts.RESOURCE_WIDTH / 3)-5,
+						ResourceViewConsts.RESOURCE_Y
+								+ ResourceViewConsts.RESOURCE_HEIGHT-5,10,10, 0, 360);
+						
+					}
+				}
+
+			}
+		
+		
+		for (int i1 = 0; i1 < plist.length; i1++) {
+			g2.setStroke(new BasicStroke(5));
+			g.setColor(new Color(50,150,75));
+
+			List<Resource> allocatedRList = ((ProcessBean) plist[i1])
 					.getResources();
 
 			for (int j = 0; j < allocatedRList.size(); j++) {
@@ -174,8 +216,8 @@ public class ResourceSnapshotView extends JComponent {
 							.getRid()) {
 
 						int rOffset = k * ResourceViewConsts.OFFSET_CONST;
-						int pOffset = i * ResourceViewConsts.OFFSET_CONST;
-
+						int pOffset = i1 * ResourceViewConsts.OFFSET_CONST;
+						
 						g.drawLine(
 								ResourceViewConsts.RESOURCE_X
 										+ rOffset
@@ -186,12 +228,18 @@ public class ResourceSnapshotView extends JComponent {
 										+ pOffset
 										+ (ResourceViewConsts.RESOURCE_WIDTH / 2),
 								ResourceViewConsts.PROCESS_Y);
+						g.fillArc(ResourceViewConsts.PROCESS_X
+								+ pOffset
+								+ (ResourceViewConsts.RESOURCE_WIDTH / 2)-5,
+						ResourceViewConsts.PROCESS_Y-5,10,10, 0, 360);
 					}
 				}
 
 			}
+			g2.setStroke(new BasicStroke(2));
 
 		}
 	}
 }
+	}	
 }

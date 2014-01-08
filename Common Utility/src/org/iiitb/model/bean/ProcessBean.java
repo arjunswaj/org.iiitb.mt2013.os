@@ -29,6 +29,7 @@ public class ProcessBean {
 	 * resources associated with this process
 	 */
 	private List<Resource> resources;
+	private List<Resource> resourceRequest;
 	/**
 	 * list of Time quanta associated with this process
 	 */
@@ -54,6 +55,7 @@ public class ProcessBean {
 		this.pid = pid;
 		this.pName = pName;
 		this.resources = new ArrayList<Resource>();
+		this.resourceRequest = new ArrayList<Resource>();
 	}
 
 	public ProcessBean(int pid, String pName, Date arrivalTime,
@@ -71,6 +73,15 @@ public class ProcessBean {
 
 	public int getPid() {
 		return pid;
+	}
+
+	
+	public List<Resource> getResourceRequest() {
+		return resourceRequest;
+	}
+
+	public void setResourceRequest(List<Resource> resourceRequest) {
+		this.resourceRequest = resourceRequest;
 	}
 
 	public void setPid(int pid) {

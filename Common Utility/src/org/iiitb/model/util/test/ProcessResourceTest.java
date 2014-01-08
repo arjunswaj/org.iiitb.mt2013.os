@@ -55,16 +55,19 @@ public static void main(String[] args) throws InterruptedException{
 	ResourceProcessView psnap = new ResourceProcessView(pList,p1,null,0);
 	ProcessResourceVisualizer rRenderer = new ProcessResourceVisualizer();
 	
-	
+	//allocate.requestInstance(p1, rA);
 	allocate.issueInstance(p1, rA);	
 	rRenderer.plotProcess(psnap,"Adding " + rA.getResourceName()+" to "+p1.getpName());
 	Thread.sleep(2500);
+	//allocate.requestInstance(p1, rB);
 	allocate.issueInstance(p1, rB);
 	rRenderer.plotProcess(psnap,"Adding " + rB.getResourceName()+" to "+p1.getpName());
 	Thread.sleep(2500);
+	//allocate.requestInstance(p1, rD);
 	allocate.issueInstance(p1, rD);
 	rRenderer.plotProcess(psnap,"Adding " + rD.getResourceName()+" to "+p1.getpName());
 	Thread.sleep(2500);
+	//allocate.requestInstance(p1, rA);
 	allocate.issueInstance(p1, rA);
 	rRenderer.plotProcess(psnap,"Adding " + rA.getResourceName()+" to "+p1.getpName());
 	Thread.sleep(2500);

@@ -2,9 +2,12 @@ package org.iiitb.controller.util;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.geom.AffineTransform;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -88,9 +92,9 @@ public class ResourceGraphVisualiser {
 		gbc.weighty = 1.0;
 		panel.add(snapshot, gbc);
 		
-		Color[] col= {Color.BLUE,Color.GREEN,Color.RED}; 
-		String[] vals = {"PROCESSES PRESENT","AVAILABLE RESOURCES","UNAVAILABLE RESOURCES"};
-		Legend legendObj =new Legend(3,vals,col);		
+		Color[] col= {Color.GRAY,Color.RED,Color.BLACK,Color.GREEN,Color.BLUE}; 
+		String[] vals = {"AVAILABLE RESOURCES","UNAVAILABLE RESOURCES","RESOURCE REQUEST","RESOURCE GRANTED","PROCESSES PRESENT"};
+		Legend legendObj =new Legend(5,vals,col);		
 		gbc.gridx=0;
 		gbc.gridy=1;
 		gbc.gridheight=1;
@@ -121,8 +125,41 @@ public class ResourceGraphVisualiser {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scroll, gbc);
 		
+		// JFrame t = new JFrame();
+		/*window.getContentPane().add(new JComponent() {
+
+	            private final int ARR_SIZE = 4;
+
+	            void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
+	                Graphics2D g = (Graphics2D) g1.create();
+
+	                double dx = x2 - x1, dy = y2 - y1;
+	                double angle = Math.atan2(dy, dx);
+	                int len = (int) Math.sqrt(dx*dx + dy*dy);
+	                AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+	                at.concatenate(AffineTransform.getRotateInstance(angle));
+	                g.transform(at);
+
+	                // Draw horizontal arrow starting in (0, 0)
+	                g.drawLine(0, 0, len, 0);
+	                g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+	                              new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+	            }
+
+	            public void paintComponent(Graphics g) {
+	              /*  for (int x = 15; x < 200; x += 16)
+	                    drawArrow(g, x, x, x, 150);
+	                drawArrow(g, 30, 300, 300, 190);
+	            }
+	        });
+*/
+	        /*t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        t.setSize(400, 400);
+	        t.setVisible(true);*/
+		
 		
 		window.getContentPane().add(panel);
+		//window.getContentPane().add(t);
 		window.setVisible(true);
 	}
 		

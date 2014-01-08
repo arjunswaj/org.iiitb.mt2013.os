@@ -6,6 +6,30 @@ import java.util.List;
 public class ResourceAllocation {
 	public boolean instanceAvailable = true;
 
+	public void requestInstance(ProcessBean p, Resource r){
+		List<Resource> temp = new ArrayList<Resource>();
+
+		temp = p.getResourceRequest();
+		temp.add(r);
+		p.setResourceRequest(temp);
+
+	}
+	
+	public void releaseRequest(ProcessBean p, Resource r){
+		
+		List<Resource> rTemp = new ArrayList<Resource>();
+		rTemp = p.getResourceRequest();
+		for (int i = 0; i < rTemp.size(); i++) {
+			// System.out.println(rTemp.get(i).rid);
+			if (rTemp.get(i).rid == r.rid) {
+				rTemp.remove(r);
+			}
+		}
+
+		p.setResourceRequest(rTemp);
+		
+	}
+	
 	public boolean issueInstance(ProcessBean p, Resource r) {
 		List<Resource> temp = new ArrayList<Resource>();
 
